@@ -1,26 +1,102 @@
 body {
   margin:0;
   font-family: Arial;
-  background:#0f2e1c;
+  background: linear-gradient(180deg,#0f2e1c,#1b5e20);
   color:white;
-  text-align:center;
 }
-.app { max-width:500px; margin:auto; padding:15px; }
+
+.app {
+  max-width:480px;
+  margin:auto;
+  padding:15px;
+}
+
+.header {
+  text-align:center;
+  font-size:22px;
+  font-weight:bold;
+  margin-bottom:10px;
+}
+
 .card {
   background:white;
   color:black;
-  margin:10px;
-  padding:15px;
-  border-radius:15px;
+  margin:12px 0;
+  padding:18px;
+  border-radius:20px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.25);
 }
+
+.user {
+  font-size:22px;
+  font-weight:bold;
+  text-align:center;
+}
+
+.big-number {
+  font-size:28px;
+  font-weight:bold;
+  text-align:center;
+}
+
 .bar {
   height:18px;
-  background:#ddd;
-  border-radius:10px;
+  background:#eee;
+  border-radius:12px;
   overflow:hidden;
   margin-top:10px;
 }
-#barra { height:100%; background:#4caf50; }
-#barraGruppo { height:100%; background:#2196f3; }
-.login-box { margin-top:100px; }
-button { padding:10px 20px; background:#4caf50; color:white; border:none; border-radius:10px; }
+
+#barra {
+  height:100%;
+  background:linear-gradient(90deg,#4caf50,#81c784);
+  transition:1s;
+}
+
+#barraGruppo {
+  height:100%;
+  background:linear-gradient(90deg,#2196f3,#64b5f6);
+  transition:1s;
+}
+
+.stato {
+  font-size:18px;
+  font-weight:bold;
+  text-align:center;
+}
+
+.badge {
+  background:#fff3cd;
+  font-weight:bold;
+  text-align:center;
+}
+
+.extra {
+  background:#e8f5e9;
+  font-size:14px;
+}
+
+.gruppo {
+  background:#e3f2fd;
+  font-size:14px;
+}
+
+.classifica div {
+  padding:10px;
+  border-bottom:1px solid #eee;
+}
+
+button {
+  width:100%;
+  padding:14px;
+  background:#4caf50;
+  border:none;
+  color:white;
+  border-radius:14px;
+  margin-top:10px;
+}
+
+.login-box {
+  margin-top:120px;
+  text-align:center;
+}

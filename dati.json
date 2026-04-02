@@ -4,6 +4,7 @@
   "obiettivoPersonale":121,
   "obiettivoGruppo":450,
   "operatori":[
+    {"nome":"Vale","pin":2859,"pezzi":70},
     {"nome":"Daniela","pin":1234,"pezzi":60},
     {"nome":"Patrizia","pin":1111,"pezzi":55},
     {"nome":"Cosimo","pin":2222,"pezzi":40}
