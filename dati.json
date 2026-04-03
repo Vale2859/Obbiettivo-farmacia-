@@ -25,38 +25,38 @@
   "storicoMensile": [
     {
       "mese": "Gennaio",
-      "gruppo": 0,
+      "gruppo": 354,
       "personali": {
-        "Cosimo": 0,
-        "Daniela": 0,
-        "Patrizia": 0
+        "Cosimo": 72,
+        "Daniela": 80,
+        "Patrizia": 77
       }
     },
     {
       "mese": "Febbraio",
-      "gruppo": 0,
+      "gruppo":y 344,
       "personali": {
-        "Cosimo": 0,
-        "Daniela": 0,
-        "Patrizia": 0
+        "Cosimo": 65,
+        "Daniela": 120,
+        "Patrizia": 78
       }
     },
     {
       "mese": "Marzo",
-      "gruppo": 0,
+      "gruppo": 419,
       "personali": {
-        "Cosimo": 0,
-        "Daniela": 0,
-        "Patrizia": 0
+        "Cosimo": 94,
+        "Daniela": 110,
+        "Patrizia": 141
       }
     },
     {
       "mese": "Aprile",
-      "gruppo": 400,
+      "gruppo": 39,
       "personali": {
-        "Cosimo": 87,
-        "Daniela": 0,
-        "Patrizia": 0
+        "Cosimo": 9,
+        "Daniela": 8,
+        "Patrizia": 17
       }
     },
     {
