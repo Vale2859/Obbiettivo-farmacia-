@@ -1,20 +1,40 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LDF Obiettivi - Login</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body class="login">
+<body class="login-body">
+  <main class="login-shell">
+    <section class="login-card">
+      <div class="brand-block">
+        <div class="brand-logo">LDF</div>
+        <div>
+          <div class="brand-title">Laboratorio della Farmacia</div>
+          <div class="brand-subtitle">Area obiettivi collaboratori</div>
+        </div>
+      </div>
 
-<div class="login-box">
-  <h2>🔐 Accesso</h2>
-  <input id="nome" placeholder="Nome">
-  <input id="pin" type="password" placeholder="PIN">
-  <button onclick="login()">Entra</button>
-</div>
+      <h1 class="login-title">Bentornato</h1>
+      <p class="login-text">Accedi con nome e PIN. Dopo il primo accesso il telefono ricorderà il profilo.</p>
 
-<script src="app.js"></script>
+      <label class="field-label" for="nome">Nome</label>
+      <input id="nome" class="field" placeholder="Es. Vale" autocomplete="username" />
+
+      <label class="field-label" for="pin">PIN</label>
+      <input id="pin" class="field" type="password" inputmode="numeric" placeholder="PIN" autocomplete="current-password" />
+
+      <button class="primary-btn" onclick="login()">Entra</button>
+      <p id="loginError" class="error-text"></p>
+
+      <div class="hint-card">
+        <strong>Profilo test:</strong> Vale — PIN 2859
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
 </body>
 </html>
