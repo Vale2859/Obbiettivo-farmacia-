@@ -2,6 +2,7 @@
   "giorniTotali": 14,
   "giorniPassati": 7,
   "obiettivoGruppo": 450,
+  "obiettivoAnnuale": 5400,
   "premi": {
     "min": 121,
     "max": 150
@@ -22,6 +23,128 @@
     {
       "nome": "Patrizia",
       "pezzi": 57
+    }
+  ],
+  "storicoMensile": [
+    {
+      "mese": "Gennaio",
+      "gruppo": 402,
+      "personali": {
+        "Vale": 118,
+        "Daniela": 104,
+        "Cosimo": 95,
+        "Patrizia": 85
+      }
+    },
+    {
+      "mese": "Febbraio",
+      "gruppo": 436,
+      "personali": {
+        "Vale": 126,
+        "Daniela": 110,
+        "Cosimo": 102,
+        "Patrizia": 98
+      }
+    },
+    {
+      "mese": "Marzo",
+      "gruppo": 458,
+      "personali": {
+        "Vale": 134,
+        "Daniela": 116,
+        "Cosimo": 108,
+        "Patrizia": 100
+      }
+    },
+    {
+      "mese": "Aprile",
+      "gruppo": 472,
+      "personali": {
+        "Vale": 139,
+        "Daniela": 118,
+        "Cosimo": 112,
+        "Patrizia": 103
+      }
+    },
+    {
+      "mese": "Maggio",
+      "gruppo": 448,
+      "personali": {
+        "Vale": 128,
+        "Daniela": 117,
+        "Cosimo": 106,
+        "Patrizia": 97
+      }
+    },
+    {
+      "mese": "Giugno",
+      "gruppo": 486,
+      "personali": {
+        "Vale": 145,
+        "Daniela": 121,
+        "Cosimo": 116,
+        "Patrizia": 104
+      }
+    },
+    {
+      "mese": "Luglio",
+      "gruppo": 501,
+      "personali": {
+        "Vale": 152,
+        "Daniela": 127,
+        "Cosimo": 120,
+        "Patrizia": 102
+      }
+    },
+    {
+      "mese": "Agosto",
+      "gruppo": 438,
+      "personali": {
+        "Vale": 121,
+        "Daniela": 112,
+        "Cosimo": 109,
+        "Patrizia": 96
+      }
+    },
+    {
+      "mese": "Settembre",
+      "gruppo": 467,
+      "personali": {
+        "Vale": 137,
+        "Daniela": 119,
+        "Cosimo": 111,
+        "Patrizia": 100
+      }
+    },
+    {
+      "mese": "Ottobre",
+      "gruppo": 489,
+      "personali": {
+        "Vale": 149,
+        "Daniela": 124,
+        "Cosimo": 115,
+        "Patrizia": 101
+      }
+    },
+    {
+      "mese": "Novembre",
+      "gruppo": 455,
+      "personali": {
+        "Vale": 133,
+        "Daniela": 118,
+        "Cosimo": 108,
+        "Patrizia": 96
+      }
+    },
+    {
+      "mese": "Dicembre",
+      "gruppo": 512,
+      "personali": {
+        "Vale": 158,
+        "Daniela": 132,
+        "Cosimo": 121,
+        "Patrizia": 101
+      }
     }
   ]
 }

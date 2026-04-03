@@ -9,137 +9,170 @@
 </head>
 <body>
   <main class="app">
-    <header class="top">
-      <div class="brand">
-        <div class="logo-main">LDF</div>
-        <div class="logo-sub">LABORATORIO DELLA FARMACIA</div>
-      </div>
-
-      <div class="welcome">
-        <div class="welcome-small">Bentornato</div>
-        <div class="welcome-name" id="welcomeName">VALE👋</div>
-      </div>
-
-      <div class="avatar-card">
-        <div class="avatar-initial">V</div>
-      </div>
-    </header>
-
-    <div class="month-title">I TUOI OBIETTIVI DI QUESTO MESE</div>
-
-    <section class="goal-top">
-      <div class="goal-chip gold">
-        <div class="goal-num">1</div>
-        <div class="goal-copy">
-          <div class="goal-title">OBIETTIVO MINIMO</div>
-          <div class="goal-sub">Per il premio base</div>
-        </div>
-        <div class="goal-value">121 <span>PEZZI</span></div>
-      </div>
-
-      <div class="goal-chip green">
-        <div class="goal-num">2</div>
-        <div class="goal-copy">
-          <div class="goal-title">OBIETTIVO MAX</div>
-          <div class="goal-sub">Il tuo massimo potenziale</div>
-        </div>
-        <div class="goal-value">150 <span>PEZZI</span></div>
-      </div>
-    </section>
-
-    <section class="card white hero-card">
-      <div class="hero-grid">
-        <div class="hero-left">
-          <div class="ring" id="ring">
-            <div class="ring-inner">
-              <div class="ring-value" id="piecesDone">85</div>
-              <div class="ring-text">PEZZI<br>FATTI</div>
-            </div>
-          </div>
+    <section id="page-obiettivi" class="page active">
+      <header class="top">
+        <div class="brand">
+          <div class="logo-main">LDF</div>
+          <div class="logo-sub">LABORATORIO DELLA FARMACIA</div>
         </div>
 
-        <div class="hero-right">
-          <div class="hero-line">
-            <div class="hero-big" id="heroBig">85 / 150 <span>PEZZI</span></div>
-            <div class="hero-pill">OBIETTIVO MAX</div>
+        <div class="welcome">
+          <div class="welcome-small">Bentornato</div>
+          <div class="welcome-name" id="welcomeName">VALE👋</div>
+        </div>
+
+        <div class="avatar-card">
+          <div class="avatar-initial">V</div>
+        </div>
+      </header>
+
+      <div class="month-title">I TUOI OBIETTIVI DI QUESTO MESE</div>
+
+      <section class="goal-top">
+        <div class="goal-chip gold">
+          <div class="goal-num">1</div>
+          <div class="goal-copy">
+            <div class="goal-title">OBIETTIVO MINIMO</div>
+            <div class="goal-sub">Per il premio base</div>
           </div>
+          <div class="goal-value">121 <span>PEZZI</span></div>
+        </div>
 
-          <div class="hero-percent" id="heroPercentText">Sei al 56% del massimo</div>
-
-          <div class="track silver">
-            <div class="fill green-fill" id="heroFill"></div>
-            <div class="marker min-marker"><span>121</span></div>
-            <div class="marker max-marker"><span>150</span></div>
+        <div class="goal-chip green">
+          <div class="goal-num">2</div>
+          <div class="goal-copy">
+            <div class="goal-title">OBIETTIVO MAX</div>
+            <div class="goal-sub">Il tuo massimo potenziale</div>
           </div>
+          <div class="goal-value">150 <span>PEZZI</span></div>
+        </div>
+      </section>
 
-          <div class="mini-goal-row">
-            <div class="mini-goal gold-lite">
-              <div class="mini-icon">🏆</div>
-              <div>
-                <div class="mini-title">MINIMO 121</div>
-                <div class="mini-sub">Raggiungi il premio base</div>
-              </div>
-            </div>
-            <div class="mini-goal blue-lite">
-              <div class="mini-icon">🎯</div>
-              <div>
-                <div class="mini-title">MAX 150</div>
-                <div class="mini-sub">Punta al premio massimo</div>
+      <section class="card white hero-card">
+        <div class="hero-grid">
+          <div class="hero-left">
+            <div class="ring" id="ring">
+              <div class="ring-inner">
+                <div class="ring-value" id="piecesDone">85</div>
+                <div class="ring-text">PEZZI<br>FATTI</div>
               </div>
             </div>
           </div>
+
+          <div class="hero-right">
+            <div class="hero-line">
+              <div class="hero-big" id="heroBig">85 / 150 <span>PEZZI</span></div>
+              <div class="hero-pill">OBIETTIVO MAX</div>
+            </div>
+
+            <div class="hero-percent" id="heroPercentText">Sei al 56% del massimo</div>
+
+            <div class="track silver">
+              <div class="fill green-fill" id="heroFill"></div>
+              <div class="marker min-marker"><span>121</span></div>
+              <div class="marker max-marker"><span>150</span></div>
+            </div>
+
+            <div class="mini-goal-row">
+              <div class="mini-goal gold-lite">
+                <div class="mini-icon">🏆</div>
+                <div>
+                  <div class="mini-title">MINIMO 121</div>
+                  <div class="mini-sub">Raggiungi il premio base</div>
+                </div>
+              </div>
+              <div class="mini-goal blue-lite">
+                <div class="mini-icon">🎯</div>
+                <div>
+                  <div class="mini-title">MAX 150</div>
+                  <div class="mini-sub">Punta al premio massimo</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
+
+      <section class="stats dark-card">
+        <div class="stat amber">
+          <div class="stat-title">MANCANO AL MINIMO</div>
+          <div class="stat-value" id="toMin">36 <span>pezzi</span></div>
+        </div>
+        <div class="stat blue">
+          <div class="stat-title">MANCANO AL MASSIMO</div>
+          <div class="stat-value" id="toMax">65 <span>pezzi</span></div>
+        </div>
+        <div class="stat green">
+          <div class="stat-title">RITMO NECESSARIO</div>
+          <div class="stat-value" id="needDay">7 <span>pezzi/giorno</span></div>
+        </div>
+
+        <div class="bottom-stats">
+          <div class="bottom-stat">
+            <div class="bottom-title">MEDIA ATTUALE</div>
+            <div class="bottom-value" id="avg">6.1 <span>pezzi/giorno</span></div>
+          </div>
+          <div class="divider"></div>
+          <div class="bottom-stat">
+            <div class="bottom-title">PREVISIONE FINE MESE</div>
+            <div class="bottom-value" id="forecast">183 <span>pezzi</span></div>
+          </div>
+          <div class="forecast-pill" id="forecastPill">Ce la puoi fare! 🚀</div>
+        </div>
+      </section>
+
+      <section class="card white group-card">
+        <div class="row-head">
+          <div class="section-title">👥 OBIETTIVO DI GRUPPO</div>
+          <div class="section-percent" id="groupPercent">64%</div>
+        </div>
+        <div class="group-main" id="groupMain">289 / 450 PEZZI</div>
+        <div class="track silver group-track">
+          <div class="fill blue-fill glow" id="groupFill"></div>
+        </div>
+        <div class="group-row">
+          <div class="group-item"><span>MANCANO:</span> <strong id="groupMissing">161</strong></div>
+          <div class="group-item"><span>PREVISIONE:</span> <strong id="groupForecast">578</strong></div>
+          <div class="group-item"><span>SERVE:</span> <strong><span id="groupNeed">23</span> al giorno</strong></div>
+        </div>
+      </section>
     </section>
 
-    <section class="stats dark-card">
-      <div class="stat amber">
-        <div class="stat-title">MANCANO AL MINIMO</div>
-        <div class="stat-value" id="toMin">36 <span>pezzi</span></div>
-      </div>
-      <div class="stat blue">
-        <div class="stat-title">MANCANO AL MASSIMO</div>
-        <div class="stat-value" id="toMax">65 <span>pezzi</span></div>
-      </div>
-      <div class="stat green">
-        <div class="stat-title">RITMO NECESSARIO</div>
-        <div class="stat-value" id="needDay">7 <span>pezzi/giorno</span></div>
-      </div>
-
-      <div class="bottom-stats">
-        <div class="bottom-stat">
-          <div class="bottom-title">MEDIA ATTUALE</div>
-          <div class="bottom-value" id="avg">6.1 <span>pezzi/giorno</span></div>
+    <section id="page-storico" class="page">
+      <header class="storico-top">
+        <div>
+          <div class="storico-kicker">Storico annuale</div>
+          <div class="storico-title">Andamento</div>
         </div>
-        <div class="divider"></div>
-        <div class="bottom-stat">
-          <div class="bottom-title">PREVISIONE FINE MESE</div>
-          <div class="bottom-value" id="forecast">183 <span>pezzi</span></div>
-        </div>
-        <div class="forecast-pill" id="forecastPill">Ce la puoi fare! 🚀</div>
-      </div>
-    </section>
+        <div class="storico-badge" id="storicoUserName">Vale</div>
+      </header>
 
-    <section class="card white group-card">
-      <div class="row-head">
-        <div class="section-title">👥 OBIETTIVO DI GRUPPO</div>
-        <div class="section-percent" id="groupPercent">64%</div>
-      </div>
-      <div class="group-main" id="groupMain">289 / 450 PEZZI</div>
-      <div class="track silver group-track">
-        <div class="fill blue-fill glow" id="groupFill"></div>
-      </div>
-      <div class="group-row">
-        <div class="group-item"><span>MANCANO:</span> <strong id="groupMissing">161</strong></div>
-        <div class="group-item"><span>PREVISIONE:</span> <strong id="groupForecast">578</strong></div>
-        <div class="group-item"><span>SERVE:</span> <strong><span id="groupNeed">23</span> al giorno</strong></div>
-      </div>
+      <section class="card annual-card">
+        <div class="annual-head">
+          <div>
+            <div class="annual-kicker">Totale annuale</div>
+            <div class="annual-big"><span id="annualTotal">0</span> / 5400 <span>pz</span></div>
+          </div>
+          <div class="annual-percent" id="annualPercent">0%</div>
+        </div>
+        <div class="track silver annual-track">
+          <div class="fill green-fill" id="annualFill"></div>
+        </div>
+      </section>
+
+      <section class="card storico-list-card">
+        <div class="storico-list-head">
+          <div class="storico-col left">Personali</div>
+          <div class="storico-col right">Gruppo</div>
+        </div>
+        <div id="monthsList"></div>
+      </section>
     </section>
 
     <div class="nav-spacer"></div>
     <nav class="bottom-nav">
-      <a class="nav active">Obiettivi</a>
-      <a class="nav">Storico</a>
+      <button class="nav active" data-target="obiettivi">Obiettivi</button>
+      <button class="nav" data-target="storico">Storico</button>
     </nav>
   </main>
 

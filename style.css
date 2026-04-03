@@ -10,7 +10,10 @@ body{
   min-height:100vh; color:#fff;
   background:radial-gradient(circle at 20% 0%, rgba(33,154,111,.18), transparent 28%), linear-gradient(180deg,var(--bg1),var(--bg2));
 }
+button{font:inherit}
 .app{width:min(100%,560px);margin:0 auto;padding:14px 9px calc(108px + env(safe-area-inset-bottom))}
+.page{display:none}
+.page.active{display:block}
 .top{display:grid;grid-template-columns:1fr 1fr 74px;gap:8px;align-items:start;margin-bottom:6px}
 .logo-main{font-size:52px;font-weight:900;line-height:.92;letter-spacing:-2px}
 .logo-sub{font-size:8px;color:#d6e8de;letter-spacing:.6px;margin-top:4px}
@@ -85,7 +88,31 @@ body{
 .group-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:10px}
 .group-item{background:#f4f7f4;border-radius:10px;padding:7px 4px;text-align:center;font-size:10px;color:#1a2a23}
 .group-item span{font-size:8px;font-weight:900;color:#6b7b72}
+
+.storico-top{display:flex;justify-content:space-between;align-items:end;margin-bottom:8px;padding-top:2px}
+.storico-kicker{font-size:10px;color:#d6e8de;font-weight:800}
+.storico-title{font-size:28px;font-weight:900;line-height:1}
+.storico-badge{background:rgba(255,255,255,.12);padding:8px 12px;border-radius:999px;font-size:12px;font-weight:900}
+.annual-card{background:rgba(255,255,255,.97);color:var(--text);padding:12px}
+.annual-head{display:flex;justify-content:space-between;gap:8px;align-items:end}
+.annual-kicker{font-size:10px;color:var(--muted);font-weight:900}
+.annual-big{font-size:28px;font-weight:900;line-height:1;margin-top:4px}
+.annual-big span{font-size:12px}
+.annual-percent{font-size:24px;font-weight:900;color:#1d7a46}
+.annual-track{margin-top:10px}
+.storico-list-card{background:rgba(255,255,255,.97);color:var(--text);padding:10px}
+.storico-list-head{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:4px 6px 8px}
+.storico-col{font-size:10px;font-weight:900;color:var(--muted)}
+.storico-col.right{text-align:right}
+.month-row{display:grid;grid-template-columns:82px 1fr 1fr;gap:8px;align-items:center;padding:9px 6px;border-top:1px solid #eef2ef}
+.month-name{font-size:12px;font-weight:900}
+.month-box{background:#f5f7f5;border-radius:12px;padding:9px 8px}
+.month-box.group{background:#eef6ff}
+.month-box-title{font-size:8px;color:var(--muted);font-weight:900}
+.month-box-value{font-size:18px;font-weight:900;line-height:1;margin-top:4px}
+.month-box-sub{font-size:9px;color:var(--muted);margin-top:4px}
+
 .nav-spacer{height:8px}
 .bottom-nav{position:fixed;left:50%;bottom:12px;transform:translateX(-50%);width:min(calc(100% - 24px),560px);padding:7px;padding-bottom:calc(7px + env(safe-area-inset-bottom));border-radius:20px;background:rgba(8,39,31,.95);border:1px solid rgba(255,255,255,.08);box-shadow:0 14px 34px rgba(0,0,0,.35);display:grid;grid-template-columns:repeat(2,1fr);gap:7px}
-.nav{text-align:center;padding:9px 6px;border-radius:12px;font-size:11px;font-weight:800;color:#d8e6de}
+.nav{border:none;background:transparent;text-align:center;padding:9px 6px;border-radius:12px;font-size:11px;font-weight:800;color:#d8e6de}
 .nav.active{background:linear-gradient(180deg,#1b5e42,#2e8a60);color:#fff}
