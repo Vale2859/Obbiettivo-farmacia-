@@ -1,16 +1,12 @@
 
-const LS_USER_KEY = 'ldf_logged_user_v2';
+const LS_USER_KEY = 'ldf_logged_user_v3';
 
 function clamp(v,min,max){ return Math.max(min, Math.min(max, v)); }
-
 function showPage(page){
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-' + page).classList.add('active');
-  document.querySelectorAll('.nav').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.target === page);
-  });
+  document.querySelectorAll('.nav').forEach(btn => btn.classList.toggle('active', btn.dataset.target === page));
 }
-
 function setLoggedUser(name){ localStorage.setItem(LS_USER_KEY, name); }
 function getLoggedUser(){ return localStorage.getItem(LS_USER_KEY) || ''; }
 function clearLoggedUser(){ localStorage.removeItem(LS_USER_KEY); }
@@ -20,7 +16,6 @@ function currentMonthIndexFromLabel(label){
   const idx = months.findIndex(m => m.toLowerCase() === String(label || '').toLowerCase());
   return idx >= 0 ? idx : (new Date().getMonth());
 }
-
 function currentMonthEntry(data){
   const idx = currentMonthIndexFromLabel(data.meseCorrente);
   return (data.storicoMensile || [])[idx] || null;
@@ -31,9 +26,8 @@ fetch('dati.json').then(r => r.json()).then(data => {
 
   function applyUser(user){
     const name = user.nome;
-    const initial = name ? name.charAt(0).toUpperCase() : 'O';
     document.getElementById('welcomeName').textContent = name.toUpperCase() + '👋';
-    document.getElementById('avatarInitial').textContent = initial;
+    document.getElementById('avatarInitial').textContent = name.charAt(0).toUpperCase();
     document.getElementById('storicoUserName').textContent = name;
 
     const monthEntry = currentMonthEntry(data);
@@ -61,8 +55,6 @@ fetch('dati.json').then(r => r.json()).then(data => {
     document.getElementById('goalMaxTop').textContent = maxGoal;
     document.getElementById('minMarkerText').textContent = minGoal;
     document.getElementById('maxMarkerText').textContent = maxGoal;
-    document.getElementById('miniMinText').textContent = minGoal;
-    document.getElementById('miniMaxText').textContent = maxGoal;
 
     document.getElementById('piecesDone').textContent = current;
     document.getElementById('heroBig').innerHTML = `${current} / ${maxGoal} <span>PEZZI</span>`;

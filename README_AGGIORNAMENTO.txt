@@ -1,43 +1,29 @@
-LDF OBIETTIVI - VERSIONE CORRETTA HOME + STORICO
+VERSIONE HOME SCREEN + FIX LAYOUT
 
-ADESSO LA HOME LEGGE I DATI DIRETTAMENTE DAL MESE CORRENTE DENTRO storicoMensile.
-QUINDI TU DEVI AGGIORNARE SOLO QUESTE COSE:
+COSA È STATO FATTO:
+- tolta la sezione cerchiata sotto il grafico
+- stretto tutto più verso l'alto
+- aggiunti i file icona in root per schermata Home
+- aggiunto manifest.json
+- corretta la home perché legga il mese corrente da storicoMensile
 
-1) meseCorrente
-Esempio:
-"meseCorrente": "Aprile"
+FILE DA CARICARE IN ROOT:
+- index.html
+- style.css
+- app.js
+- dati.json
+- manifest.json
+- icon-512.png
+- apple-touch-icon.png
+- logo-ldf-app.svg
 
-2) giorniPassati
-Esempio:
-"giorniPassati": 7
+PER LA HOME SCREEN:
+su iPhone:
+- apri Safari
+- condividi
+- aggiungi a schermata Home
 
-3) storicoMensile del mese corrente
-Esempio per Aprile:
-{"mese":"Aprile","gruppo":289,"personali":{"Cosimo":85,"Daniela":82,"Patrizia":57}}
-
-STOP.
-NON DEVI PIÙ TOCCARE ALTRO PER FAR AGGIORNARE LA HOME.
-
-COME FUNZIONA:
-- la HOME prende i dati del mese indicato in meseCorrente
-- lo STORICO mostra tutti i mesi
-- il totale annuale si aggiorna sommando i valori di gruppo dei 12 mesi
-
-LOGIN:
-- Cosimo pin 1
-- Daniela pin 2
-- Patrizia pin 3
-
-SE IL DISPOSITIVO HA GIÀ MEMORIZZATO UN UTENTE VECCHIO:
-- apri Storico
-- premi Cambia operatore
-oppure svuota i dati del sito dal browser
-
-ESEMPIO PRATICO OGNI DOMENICA:
-- aggiorni giorniPassati
-- aggiorni SOLO il mese corrente dentro storicoMensile
-
-ESEMPIO:
-"giorniPassati": 14
-
-{"mese":"Aprile","gruppo":340,"personali":{"Cosimo":104,"Daniela":96,"Patrizia":72}}
+AGGIORNI SOLO:
+- meseCorrente
+- giorniPassati
+- la riga del mese corrente dentro storicoMensile
