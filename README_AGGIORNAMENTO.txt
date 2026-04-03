@@ -41,15 +41,11 @@ COSA MOSTRA:
 - report strutturati collegati a dati.json
 
 
-AGGIORNAMENTO MEDIA E RITMO:
-- la MEDIA adesso considera solo i giorni lavorati dal lunedì al sabato
-- la domenica NON viene conteggiata
-- il RITMO NECESSARIO adesso usa il target mensile di 150 pz diviso i giorni lavorativi del mese
-- quindi vedrai valori come 6.5 pz/giorno circa, variabili in base al mese
-- per il calcolo del calendario viene usato:
-  "annoCalcolo": 2026
-
-TU CONTINUI AD AGGIORNARE:
-- meseCorrente
-- giorniPassati
-- riga del mese corrente in storicoMensile
+CORREZIONI FATTE:
+- MEDIA ATTUALE = pezzi fatti / giorni lavorativi passati (lun-sab, domenica esclusa)
+- RITMO NECESSARIO = pezzi che mancano a 150 / giorni lavorativi rimasti
+  quindi cambia davvero in tempo reale:
+  - più vende -> più scende
+  - meno vende -> più sale
+- TITOLARE corretto e reso più robusto
+- pagina titolare: usa link titolare.html

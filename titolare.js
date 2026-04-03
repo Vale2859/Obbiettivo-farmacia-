@@ -1,10 +1,8 @@
 
 function clamp(v,min,max){ return Math.max(min, Math.min(max, v)); }
 
-const months = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
-
 fetch('dati.json').then(r => r.json()).then(data => {
-  const currentMonthName = data.meseCorrente || months[new Date().getMonth()];
+  const currentMonthName = data.meseCorrente || '';
   const currentMonth = (data.storicoMensile || []).find(m => m.mese === currentMonthName) || null;
   const operators = (data.operatori || []).map(o => o.nome);
 
@@ -26,12 +24,12 @@ fetch('dati.json').then(r => r.json()).then(data => {
     annualPerEmployee[name] = (data.storicoMensile || []).reduce((acc, item) => acc + Number((item.personali || {})[name] || 0), 0);
   });
 
-  const bestName = operators.sort((a,b) => annualPerEmployee[b] - annualPerEmployee[a])[0] || '-';
+  const sortedOps = [...operators].sort((a,b) => annualPerEmployee[b] - annualPerEmployee[a]);
+  const bestName = sortedOps[0] || '-';
   const bestPct = yearGroupTotal > 0 ? ((annualPerEmployee[bestName] / yearGroupTotal) * 100) : 0;
   document.getElementById('bestContributor').textContent = bestName;
   document.getElementById('bestContributorPct').textContent = `${bestPct.toFixed(1)}% del totale anno`;
 
-  // Current month employee cards
   const currentWrap = document.getElementById('currentMonthCards');
   currentWrap.innerHTML = '';
   (data.operatori || []).forEach(op => {
@@ -39,9 +37,9 @@ fetch('dati.json').then(r => r.json()).then(data => {
     const current = Number(currentMonth ? (currentMonth.personali || {})[name] || 0 : 0);
     const minGoal = Number(data.premi.min || 121);
     const maxGoal = Number(data.premi.max || 150);
+    const pct = clamp((current / maxGoal) * 100, 0, 100);
     const toMin = Math.max(minGoal - current, 0);
     const toMax = Math.max(maxGoal - current, 0);
-    const pct = clamp((current / maxGoal) * 100, 0, 100);
     const card = document.createElement('article');
     card.className = 'employee-month-card';
     card.innerHTML = `
@@ -52,20 +50,13 @@ fetch('dati.json').then(r => r.json()).then(data => {
       </div>
       <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
       <div class="employee-bottom">
-        <div class="mini-stat">
-          <div class="mini-stat-label">Manca al minimo</div>
-          <div class="mini-stat-value">${toMin}</div>
-        </div>
-        <div class="mini-stat">
-          <div class="mini-stat-label">Manca al massimo</div>
-          <div class="mini-stat-value">${toMax}</div>
-        </div>
+        <div class="mini-stat"><div class="mini-stat-label">Manca al minimo</div><div class="mini-stat-value">${toMin}</div></div>
+        <div class="mini-stat"><div class="mini-stat-label">Manca al massimo</div><div class="mini-stat-value">${toMax}</div></div>
       </div>
     `;
     currentWrap.appendChild(card);
   });
 
-  // Annual contribution table
   const annualBody = document.getElementById('annualContributionBody');
   annualBody.innerHTML = '';
   (data.operatori || []).forEach(op => {
@@ -74,31 +65,33 @@ fetch('dati.json').then(r => r.json()).then(data => {
     const avg = total / 12;
     const pct = yearGroupTotal > 0 ? ((total / yearGroupTotal) * 100) : 0;
     const row = document.createElement('tr');
-    row.innerHTML = `
-      <td>${name}</td>
-      <td>${total}</td>
-      <td>${avg.toFixed(1)}</td>
-      <td>${pct.toFixed(1)}%</td>
-    `;
+    row.innerHTML = `<td>${name}</td><td>${total}</td><td>${avg.toFixed(1)}</td><td>${pct.toFixed(1)}%</td>`;
     annualBody.appendChild(row);
   });
 
-  // Monthly history
+  const headRow = document.getElementById('historyHeadRow');
+  operators.forEach(name => {
+    const th = document.createElement('th');
+    th.textContent = name;
+    headRow.appendChild(th);
+  });
+  const groupTh = document.createElement('th');
+  groupTh.textContent = 'Gruppo';
+  headRow.appendChild(groupTh);
+
   const monthlyBody = document.getElementById('monthlyHistoryBody');
   monthlyBody.innerHTML = '';
   (data.storicoMensile || []).forEach(item => {
     const row = document.createElement('tr');
-    row.innerHTML = `
-      <td>${item.mese}</td>
-      <td>${Number((item.personali || {}).Cosimo || 0)}</td>
-      <td>${Number((item.personali || {}).Daniela || 0)}</td>
-      <td>${Number((item.personali || {}).Patrizia || 0)}</td>
-      <td>${Number(item.gruppo || 0)}</td>
-    `;
+    let html = `<td>${item.mese}</td>`;
+    operators.forEach(name => {
+      html += `<td>${Number((item.personali || {})[name] || 0)}</td>`;
+    });
+    html += `<td>${Number(item.gruppo || 0)}</td>`;
+    row.innerHTML = html;
     monthlyBody.appendChild(row);
   });
 
-  // Report per employee
   const reportWrap = document.getElementById('employeeReports');
   reportWrap.innerHTML = '';
   (data.operatori || []).forEach(op => {
@@ -110,6 +103,7 @@ fetch('dati.json').then(r => r.json()).then(data => {
       const value = Number((item.personali || {})[name] || 0);
       return value > best.value ? { month: item.mese, value } : best;
     }, { month: '-', value: 0 });
+
     const report = document.createElement('article');
     report.className = 'employee-report-card';
     report.innerHTML = `
@@ -139,4 +133,6 @@ fetch('dati.json').then(r => r.json()).then(data => {
     `;
     reportWrap.appendChild(report);
   });
+}).catch(err => {
+  document.body.innerHTML = `<div style="padding:20px;color:white;font-family:Arial">Errore apertura pagina titolare.<br>${String(err)}</div>`;
 });

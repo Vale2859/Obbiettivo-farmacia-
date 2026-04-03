@@ -1,5 +1,5 @@
 
-const LS_USER_KEY = 'ldf_logged_user_v4';
+const LS_USER_KEY = 'ldf_logged_user_v6';
 
 function clamp(v,min,max){ return Math.max(min, Math.min(max, v)); }
 function showPage(page){
@@ -16,32 +16,38 @@ function currentMonthIndexFromLabel(label){
   const idx = months.findIndex(m => m.toLowerCase() === String(label || '').toLowerCase());
   return idx >= 0 ? idx : (new Date().getMonth());
 }
-
 function currentMonthEntry(data){
   const idx = currentMonthIndexFromLabel(data.meseCorrente);
   return (data.storicoMensile || [])[idx] || null;
 }
 
-// Conta solo i giorni lavorativi lun-sab, escludendo la domenica
-function countWorkedDaysInMonth(year, monthIndex, upToDay){
+// Conta solo i giorni lavorativi lun-sab. Domenica esclusa.
+function workedDaysPassed(year, monthIndex, upToDay){
   const lastDay = new Date(year, monthIndex + 1, 0).getDate();
-  const limit = Math.max(1, Math.min(upToDay, lastDay));
+  const limit = Math.max(1, Math.min(Number(upToDay || 1), lastDay));
   let count = 0;
   for(let day = 1; day <= limit; day++){
-    const jsDay = new Date(year, monthIndex, day).getDay(); // 0=dom, 1=lun ... 6=sab
-    if(jsDay !== 0) count++;
+    const dow = new Date(year, monthIndex, day).getDay(); // 0 domenica
+    if(dow !== 0) count++;
   }
   return count;
 }
-
-function countRemainingWorkedDaysInMonth(year, monthIndex, fromDayExclusive){
+function workedDaysRemaining(year, monthIndex, fromDay){
   const lastDay = new Date(year, monthIndex + 1, 0).getDate();
+  const start = Math.max(1, Math.min(Number(fromDay || 1), lastDay));
   let count = 0;
-  for(let day = fromDayExclusive + 1; day <= lastDay; day++){
-    const jsDay = new Date(year, monthIndex, day).getDay();
-    if(jsDay !== 0) count++;
+  for(let day = start + 1; day <= lastDay; day++){
+    const dow = new Date(year, monthIndex, day).getDay();
+    if(dow !== 0) count++;
   }
   return count;
+}
+function effectiveDayOfMonth(data, monthIndex, year){
+  const now = new Date();
+  if(now.getFullYear() === year && now.getMonth() === monthIndex){
+    return now.getDate();
+  }
+  return Number(data.giorniPassati || 1);
 }
 
 fetch('dati.json').then(r => r.json()).then(data => {
@@ -55,9 +61,11 @@ fetch('dati.json').then(r => r.json()).then(data => {
 
     const monthIndex = currentMonthIndexFromLabel(data.meseCorrente);
     const calcYear = Number(data.annoCalcolo || new Date().getFullYear());
-    const todayDay = Number(data.giorniPassati || new Date().getDate());
-    const workedDaysPassed = Math.max(1, countWorkedDaysInMonth(calcYear, monthIndex, todayDay));
-    const workedDaysRemaining = countRemainingWorkedDaysInMonth(calcYear, monthIndex, todayDay);
+    const dayRef = effectiveDayOfMonth(data, monthIndex, calcYear);
+
+    const daysPassed = Math.max(1, workedDaysPassed(calcYear, monthIndex, dayRef));
+    const daysRemaining = workedDaysRemaining(calcYear, monthIndex, dayRef);
+    const totalWorked = daysPassed + daysRemaining;
 
     const monthEntry = currentMonthEntry(data);
     const current = Number(monthEntry && monthEntry.personali ? (monthEntry.personali[name] || 0) : 0);
@@ -66,20 +74,24 @@ fetch('dati.json').then(r => r.json()).then(data => {
 
     const toMin = Math.max(minGoal - current, 0);
     const toMax = Math.max(maxGoal - current, 0);
-    const avg = current / workedDaysPassed;
-    const forecast = Math.round(avg * (workedDaysPassed + workedDaysRemaining));
 
-    // ritmo target fisso su 150 pz / giorni lavorativi del mese, escludendo domenica
-    const totalWorkedDaysMonth = workedDaysPassed + workedDaysRemaining;
-    const targetDailyPace = totalWorkedDaysMonth > 0 ? (maxGoal / totalWorkedDaysMonth) : 0;
+    // MEDIA ATTUALE: pezzi venduti / giorni lavorativi passati
+    const avg = current / daysPassed;
 
+    // RITMO NECESSARIO DINAMICO:
+    // pezzi che mancano a 150 / giorni lavorativi rimasti
+    const needDay = toMax > 0 ? (daysRemaining > 0 ? (toMax / daysRemaining) : toMax) : 0;
+
+    // PREVISIONE FINE MESE: media attuale * giorni lavorativi del mese
+    const forecast = Math.round(avg * totalWorked);
     const percent = clamp((current / maxGoal) * 100, 0, 100);
 
     const groupCurrent = Number(monthEntry ? (monthEntry.gruppo || 0) : 0);
-    const groupPercent = clamp((groupCurrent / data.obiettivoGruppo) * 100, 0, 100);
+    const groupPercent = clamp((groupCurrent / Number(data.obiettivoGruppo || 450)) * 100, 0, 100);
     const groupMissing = Math.max(Number(data.obiettivoGruppo || 450) - groupCurrent, 0);
-    const groupForecast = Math.round(avg * 0 + (groupCurrent / workedDaysPassed) * (workedDaysPassed + workedDaysRemaining));
-    const groupNeed = workedDaysRemaining > 0 ? Math.ceil(groupMissing / workedDaysRemaining) : 0;
+    const groupAvg = groupCurrent / daysPassed;
+    const groupForecast = Math.round(groupAvg * totalWorked);
+    const groupNeed = groupMissing > 0 ? (daysRemaining > 0 ? Math.ceil(groupMissing / daysRemaining) : groupMissing) : 0;
 
     document.getElementById('goalMinTop').textContent = minGoal;
     document.getElementById('goalMaxTop').textContent = maxGoal;
@@ -91,7 +103,7 @@ fetch('dati.json').then(r => r.json()).then(data => {
     document.getElementById('heroPercentText').textContent = `Sei al ${Math.round(percent)}% del massimo`;
     document.getElementById('toMin').innerHTML = `${toMin} <span>pezzi</span>`;
     document.getElementById('toMax').innerHTML = `${toMax} <span>pezzi</span>`;
-    document.getElementById('needDay').innerHTML = `${targetDailyPace.toFixed(1)} <span>pezzi/giorno</span>`;
+    document.getElementById('needDay').innerHTML = `${needDay.toFixed(1)} <span>pezzi/giorno</span>`;
     document.getElementById('avg').innerHTML = `${avg.toFixed(1)} <span>pezzi/giorno</span>`;
     document.getElementById('forecast').innerHTML = `${forecast} <span>pezzi</span>`;
     document.getElementById('forecastPill').textContent =
@@ -110,9 +122,9 @@ fetch('dati.json').then(r => r.json()).then(data => {
     document.getElementById('ring').style.setProperty('--p', percent.toFixed(2));
 
     const annualGroupTotal = (data.storicoMensile || []).reduce((acc, item) => acc + Number(item.gruppo || 0), 0);
-    const annualFill = clamp((annualGroupTotal / data.obiettivoAnnuale) * 100, 0, 100);
+    const annualFill = clamp((annualGroupTotal / Number(data.obiettivoAnnuale || 5400)) * 100, 0, 100);
     document.getElementById('annualTotal').textContent = annualGroupTotal;
-    document.getElementById('annualPercent').textContent = `${Math.round((annualGroupTotal / data.obiettivoAnnuale) * 100)}%`;
+    document.getElementById('annualPercent').textContent = `${Math.round((annualGroupTotal / Number(data.obiettivoAnnuale || 5400)) * 100)}%`;
     document.getElementById('annualFill').style.width = `${annualFill}%`;
 
     const monthsWrap = document.getElementById('monthsList');
