@@ -4,10 +4,7 @@
   "obiettivoGruppo": 450,
   "premi": {
     "min": 121,
-    "max": 150,
-    "base": 67,
-    "maxPremio": 84,
-    "bonusGruppo": 25
+    "max": 150
   },
   "operatori": [
     {
