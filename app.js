@@ -30,7 +30,7 @@ fetch('dati.json').then(r => r.json()).then(data => {
   const groupNeed = groupMissing > 0 ? Math.ceil(groupMissing / left) : 0;
   const rewardWithGroup = reward + (groupCurrent >= data.obiettivoGruppo ? data.premi.bonusGruppo : 0);
 
-  document.getElementById('welcomeName').textContent = user.nome.toUpperCase() + ' 👋';
+  document.getElementById('welcomeName').textContent = user.nome.toUpperCase() + '👋';
   document.getElementById('piecesDone').textContent = current;
   document.getElementById('heroBig').innerHTML = `${current} / ${maxGoal} <span>PEZZI</span>`;
   document.getElementById('heroPercentText').textContent = `Sei al ${Math.round(percent)}% del massimo`;
