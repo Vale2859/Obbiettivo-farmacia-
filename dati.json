@@ -1,0 +1,136 @@
+{
+  "meseCorrente": "Aprile",
+  "giorniTotali": 30,
+  "giorniPassati": 7,
+  "obiettivoGruppo": 450,
+  "obiettivoAnnuale": 5400,
+  "premi": {
+    "min": 121,
+    "max": 150
+  },
+  "operatori": [
+    {
+      "nome": "Cosimo",
+      "pin": "1"
+    },
+    {
+      "nome": "Daniela",
+      "pin": "2"
+    },
+    {
+      "nome": "Patrizia",
+      "pin": "3"
+    }
+  ],
+  "storicoMensile": [
+    {
+      "mese": "Gennaio",
+      "gruppo": 0,
+      "personali": {
+        "Cosimo": 0,
+        "Daniela": 0,
+        "Patrizia": 0
+      }
+    },
+    {
+      "mese": "Febbraio",
+      "gruppo": 0,
+      "personali": {
+        "Cosimo": 0,
+        "Daniela": 0,
+        "Patrizia": 0
+      }
+    },
+    {
+      "mese": "Marzo",
+      "gruppo": 0,
+      "personali": {
+        "Cosimo": 0,
+        "Daniela": 0,
+        "Patrizia": 0
+      }
+    },
+    {
+      "mese": "Aprile",
+      "gruppo": 400,
+      "personali": {
+        "Cosimo": 87,
+        "Daniela": 0,
+        "Patrizia": 0
+      }
+    },
+    {
+      "mese": "Maggio",
+      "gruppo": 0,
+      "personali": {
+        "Cosimo": 0,
+        "Daniela": 0,
+        "Patrizia": 0
+      }
+    },
+    {
+      "mese": "Giugno",
+      "gruppo": 0,
+      "personali": {
+        "Cosimo": 0,
+        "Daniela": 0,
+        "Patrizia": 0
+      }
+    },
+    {
+      "mese": "Luglio",
+      "gruppo": 0,
+      "personali": {
+        "Cosimo": 0,
+        "Daniela": 0,
+        "Patrizia": 0
+      }
+    },
+    {
+      "mese": "Agosto",
+      "gruppo": 0,
+      "personali": {
+        "Cosimo": 0,
+        "Daniela": 0,
+        "Patrizia": 0
+      }
+    },
+    {
+      "mese": "Settembre",
+      "gruppo": 0,
+      "personali": {
+        "Cosimo": 0,
+        "Daniela": 0,
+        "Patrizia": 0
+      }
+    },
+    {
+      "mese": "Ottobre",
+      "gruppo": 0,
+      "personali": {
+        "Cosimo": 0,
+        "Daniela": 0,
+        "Patrizia": 0
+      }
+    },
+    {
+      "mese": "Novembre",
+      "gruppo": 0,
+      "personali": {
+        "Cosimo": 0,
+        "Daniela": 0,
+        "Patrizia": 0
+      }
+    },
+    {
+      "mese": "Dicembre",
+      "gruppo": 0,
+      "personali": {
+        "Cosimo": 0,
+        "Daniela": 0,
+        "Patrizia": 0
+      }
+    }
+  ],
+  "annoCalcolo": 2026
+}
