@@ -1,5 +1,5 @@
 
-const LS_USER_KEY = 'ldf_logged_user_v3';
+const LS_USER_KEY = 'ldf_logged_user_v4';
 
 function clamp(v,min,max){ return Math.max(min, Math.min(max, v)); }
 function showPage(page){
@@ -19,10 +19,8 @@ function currentMonthEntry(data){
   const idx = currentMonthIndexFromLabel(data.meseCorrente);
   return (data.storicoMensile || [])[idx] || null;
 }
-
 fetch('dati.json').then(r => r.json()).then(data => {
   const operators = data.operatori || [];
-
   function applyUser(user){
     const name = user.nome;
     document.getElementById('welcomeName').textContent = name.toUpperCase() + '👋';
@@ -54,7 +52,6 @@ fetch('dati.json').then(r => r.json()).then(data => {
     document.getElementById('goalMaxTop').textContent = maxGoal;
     document.getElementById('minMarkerText').textContent = minGoal;
     document.getElementById('maxMarkerText').textContent = maxGoal;
-
     document.getElementById('piecesDone').textContent = current;
     document.getElementById('heroBig').innerHTML = `${current} / ${maxGoal} <span>PEZZI</span>`;
     document.getElementById('heroPercentText').textContent = `Sei al ${Math.round(percent)}% del massimo`;
