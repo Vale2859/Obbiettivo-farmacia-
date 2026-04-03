@@ -1,7 +1,8 @@
 
-function clamp(v,min,max){ return Math.max(min, Math.min(max, v)); }
+const LS_USER_KEY = 'ldf_logged_user';
 
-const DATA_PROMISE = fetch('dati.json').then(r => r.json());
+function clamp(v,min,max){ return Math.max(min, Math.min(max, v)); }
+function sum(arr){ return (arr || []).reduce((a,b) => a + Number(b || 0), 0); }
 
 function showPage(page){
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -11,80 +12,135 @@ function showPage(page){
   });
 }
 
-DATA_PROMISE.then(data => {
-  const user = data.operatori.find(x => x.nome === 'Vale') || data.operatori[0];
-  const current = user.pezzi;
-  const minGoal = data.premi.min;
-  const maxGoal = data.premi.max;
-  const passed = Math.max(data.giorniPassati, 1);
-  const total = data.giorniTotali;
-  const left = Math.max(total - passed, 1);
+function setLoggedUser(name){
+  localStorage.setItem(LS_USER_KEY, name);
+}
+function getLoggedUser(){
+  return localStorage.getItem(LS_USER_KEY) || '';
+}
+function clearLoggedUser(){
+  localStorage.removeItem(LS_USER_KEY);
+}
 
-  const toMin = Math.max(minGoal - current, 0);
-  const toMax = Math.max(maxGoal - current, 0);
-  const avg = current / passed;
-  const forecast = Math.round(avg * total);
-  const needDay = toMax > 0 ? Math.ceil(toMax / left) : 0;
-  const percent = clamp((current / maxGoal) * 100, 0, 100);
+fetch('dati.json').then(r => r.json()).then(data => {
+  const operators = data.operatori || [];
 
-  const groupCurrent = data.operatori.reduce((s,o) => s + o.pezzi, 0);
-  const groupPercent = clamp((groupCurrent / data.obiettivoGruppo) * 100, 0, 100);
-  const groupMissing = Math.max(data.obiettivoGruppo - groupCurrent, 0);
-  const groupForecast = Math.round((groupCurrent / passed) * total);
-  const groupNeed = groupMissing > 0 ? Math.ceil(groupMissing / left) : 0;
+  function applyUser(user){
+    const name = user.nome;
+    const initial = name ? name.charAt(0).toUpperCase() : 'O';
+    document.getElementById('welcomeName').textContent = name.toUpperCase() + '👋';
+    document.getElementById('avatarInitial').textContent = initial;
+    document.getElementById('storicoUserName').textContent = name;
 
-  document.getElementById('welcomeName').textContent = user.nome.toUpperCase() + '👋';
-  document.getElementById('piecesDone').textContent = current;
-  document.getElementById('heroBig').innerHTML = `${current} / ${maxGoal} <span>PEZZI</span>`;
-  document.getElementById('heroPercentText').textContent = `Sei al ${Math.round(percent)}% del massimo`;
-  document.getElementById('toMin').innerHTML = `${toMin} <span>pezzi</span>`;
-  document.getElementById('toMax').innerHTML = `${toMax} <span>pezzi</span>`;
-  document.getElementById('needDay').innerHTML = `${needDay} <span>pezzi/giorno</span>`;
-  document.getElementById('avg').innerHTML = `${avg.toFixed(1)} <span>pezzi/giorno</span>`;
-  document.getElementById('forecast').innerHTML = `${forecast} <span>pezzi</span>`;
-  document.getElementById('forecastPill').textContent = forecast >= maxGoal ? 'Ce la puoi fare! 🚀' : (forecast >= minGoal ? 'Premio alla portata' : 'Serve spingere');
-  document.getElementById('groupPercent').textContent = `${Math.round(groupPercent)}%`;
-  document.getElementById('groupMain').textContent = `${groupCurrent} / ${data.obiettivoGruppo} PEZZI`;
-  document.getElementById('groupMissing').textContent = groupMissing;
-  document.getElementById('groupForecast').textContent = groupForecast;
-  document.getElementById('groupNeed').textContent = groupNeed;
-  document.getElementById('heroFill').style.width = `${percent}%`;
-  document.getElementById('groupFill').style.width = `${groupPercent}%`;
-  document.getElementById('ring').style.setProperty('--p', percent.toFixed(2));
+    const current = sum(user.settimane);
+    const minGoal = data.premi.min;
+    const maxGoal = data.premi.max;
+    const passed = Math.max(Number(data.giorniPassati || 1), 1);
+    const total = Math.max(Number(data.giorniTotali || 30), 1);
+    const left = Math.max(total - passed, 1);
 
-  // storico
-  document.getElementById('storicoUserName').textContent = user.nome;
-  const months = data.storicoMensile || [];
-  const annualTotal = months.reduce((s,m) => s + (m.personali[user.nome] || 0), 0);
-  const annualPercent = clamp((annualTotal / data.obiettivoAnnuale) * 100, 0, 999);
-  document.getElementById('annualTotal').textContent = annualTotal;
-  document.getElementById('annualPercent').textContent = `${Math.round((annualTotal / data.obiettivoAnnuale) * 100)}%`;
-  document.getElementById('annualFill').style.width = `${Math.min(annualPercent,100)}%`;
+    const toMin = Math.max(minGoal - current, 0);
+    const toMax = Math.max(maxGoal - current, 0);
+    const avg = current / passed;
+    const forecast = Math.round(avg * total);
+    const needDay = toMax > 0 ? Math.ceil(toMax / left) : 0;
+    const percent = clamp((current / maxGoal) * 100, 0, 100);
 
-  const wrap = document.getElementById('monthsList');
-  wrap.innerHTML = '';
-  months.forEach(m => {
-    const mine = m.personali[user.nome] || 0;
-    const group = m.gruppo || 0;
-    const row = document.createElement('div');
-    row.className = 'month-row';
-    row.innerHTML = `
-      <div class="month-name">${m.mese}</div>
-      <div class="month-box">
-        <div class="month-box-title">Personali</div>
-        <div class="month-box-value">${mine}</div>
-        <div class="month-box-sub">pezzi</div>
-      </div>
-      <div class="month-box group">
-        <div class="month-box-title">Gruppo</div>
-        <div class="month-box-value">${group}</div>
-        <div class="month-box-sub">pezzi</div>
-      </div>
-    `;
-    wrap.appendChild(row);
+    const groupCurrent = sum(data.gruppoSettimane);
+    const groupPercent = clamp((groupCurrent / data.obiettivoGruppo) * 100, 0, 100);
+    const groupMissing = Math.max(data.obiettivoGruppo - groupCurrent, 0);
+    const groupForecast = Math.round((groupCurrent / passed) * total);
+    const groupNeed = groupMissing > 0 ? Math.ceil(groupMissing / left) : 0;
+
+    document.getElementById('goalMinTop').textContent = minGoal;
+    document.getElementById('goalMaxTop').textContent = maxGoal;
+    document.getElementById('minMarkerText').textContent = minGoal;
+    document.getElementById('maxMarkerText').textContent = maxGoal;
+    document.getElementById('miniMinText').textContent = minGoal;
+    document.getElementById('miniMaxText').textContent = maxGoal;
+
+    document.getElementById('piecesDone').textContent = current;
+    document.getElementById('heroBig').innerHTML = `${current} / ${maxGoal} <span>PEZZI</span>`;
+    document.getElementById('heroPercentText').textContent = `Sei al ${Math.round(percent)}% del massimo`;
+    document.getElementById('toMin').innerHTML = `${toMin} <span>pezzi</span>`;
+    document.getElementById('toMax').innerHTML = `${toMax} <span>pezzi</span>`;
+    document.getElementById('needDay').innerHTML = `${needDay} <span>pezzi/giorno</span>`;
+    document.getElementById('avg').innerHTML = `${avg.toFixed(1)} <span>pezzi/giorno</span>`;
+    document.getElementById('forecast').innerHTML = `${forecast} <span>pezzi</span>`;
+    document.getElementById('forecastPill').textContent = forecast >= maxGoal ? 'Ce la puoi fare! 🚀' : (forecast >= minGoal ? 'Premio alla portata' : 'Serve spingere');
+
+    document.getElementById('groupPercent').textContent = `${Math.round(groupPercent)}%`;
+    document.getElementById('groupMain').textContent = `${groupCurrent} / ${data.obiettivoGruppo} PEZZI`;
+    document.getElementById('groupMissing').textContent = groupMissing;
+    document.getElementById('groupForecast').textContent = groupForecast;
+    document.getElementById('groupNeed').textContent = groupNeed;
+
+    document.getElementById('heroFill').style.width = `${percent}%`;
+    document.getElementById('groupFill').style.width = `${groupPercent}%`;
+    document.getElementById('ring').style.setProperty('--p', percent.toFixed(2));
+
+    const annualGroupTotal = (data.storicoMensile || []).reduce((acc, item) => acc + Number(item.gruppo || 0), 0);
+    const annualFill = clamp((annualGroupTotal / data.obiettivoAnnuale) * 100, 0, 100);
+    document.getElementById('annualTotal').textContent = annualGroupTotal;
+    document.getElementById('annualPercent').textContent = `${Math.round((annualGroupTotal / data.obiettivoAnnuale) * 100)}%`;
+    document.getElementById('annualFill').style.width = `${annualFill}%`;
+
+    const monthsWrap = document.getElementById('monthsList');
+    monthsWrap.innerHTML = '';
+    (data.storicoMensile || []).forEach(m => {
+      const mine = Number((m.personali || {})[name] || 0);
+      const group = Number(m.gruppo || 0);
+      const row = document.createElement('div');
+      row.className = 'month-row';
+      row.innerHTML = `
+        <div class="month-name">${m.mese}</div>
+        <div class="month-box">
+          <div class="month-box-title">Personali</div>
+          <div class="month-box-value">${mine}</div>
+          <div class="month-box-sub">pezzi</div>
+        </div>
+        <div class="month-box group">
+          <div class="month-box-title">Gruppo</div>
+          <div class="month-box-value">${group}</div>
+          <div class="month-box-sub">pezzi</div>
+        </div>
+      `;
+      monthsWrap.appendChild(row);
+    });
+  }
+
+  function login(name, pin){
+    const user = operators.find(o => o.nome === name && String(o.pin) === String(pin));
+    if (!user) return false;
+    setLoggedUser(user.nome);
+    document.getElementById('loginOverlay').style.display = 'none';
+    applyUser(user);
+    return true;
+  }
+
+  const savedUser = getLoggedUser();
+  const autoUser = operators.find(o => o.nome === savedUser);
+  if (autoUser) {
+    document.getElementById('loginOverlay').style.display = 'none';
+    applyUser(autoUser);
+  }
+
+  document.getElementById('loginBtn').addEventListener('click', () => {
+    const name = document.getElementById('loginNome').value;
+    const pin = document.getElementById('loginPin').value.trim();
+    const ok = login(name, pin);
+    document.getElementById('loginError').textContent = ok ? '' : 'Nome o PIN non corretti.';
   });
 
   document.querySelectorAll('.nav').forEach(btn => {
     btn.addEventListener('click', () => showPage(btn.dataset.target));
+  });
+
+  document.getElementById('logoutBtn').addEventListener('click', () => {
+    clearLoggedUser();
+    showPage('obiettivi');
+    document.getElementById('loginOverlay').style.display = 'flex';
+    document.getElementById('loginPin').value = '';
+    document.getElementById('loginError').textContent = '';
   });
 });
