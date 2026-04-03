@@ -1,56 +1,43 @@
-LDF OBIETTIVI - DEFINITIVO PRONTO PER GITHUB
+LDF OBIETTIVI - VERSIONE CORRETTA HOME + STORICO
 
-FILE DA CARICARE IN ROOT:
-- index.html
-- style.css
-- app.js
-- dati.json
+ADESSO LA HOME LEGGE I DATI DIRETTAMENTE DAL MESE CORRENTE DENTRO storicoMensile.
+QUINDI TU DEVI AGGIORNARE SOLO QUESTE COSE:
 
-ACCESSI OPERATORI:
-- Cosimo / PIN 1
-- Daniela / PIN 2
-- Patrizia / PIN 3
+1) meseCorrente
+Esempio:
+"meseCorrente": "Aprile"
 
-COME FUNZIONA IL LOGIN:
-- al primo accesso l'operatore inserisce nome e PIN
-- il dispositivo lo ricorda
-- non lo richiede più
-- per cambiare operatore usa il pulsante "Cambia operatore" nella sezione Storico
-
-COME AGGIORNARE I DATI OGNI DOMENICA:
-
-1) giorniPassati
-Aggiorna il numero di giorni trascorsi del mese.
+2) giorniPassati
 Esempio:
 "giorniPassati": 7
 
-2) operatori -> settimane
-Per ogni operatore inserisci i pezzi della settimana.
-Esempio:
-"settimane": [32, 28, 0, 0, 0]
+3) storicoMensile del mese corrente
+Esempio per Aprile:
+{"mese":"Aprile","gruppo":289,"personali":{"Cosimo":85,"Daniela":82,"Patrizia":57}}
 
-3) gruppoSettimane
-Inserisci i totali di gruppo per settimana.
-Qui puoi mettere anche dati di altre persone senza mostrare nomi.
-Esempio:
-"gruppoSettimane": [110, 96, 0, 0, 0]
+STOP.
+NON DEVI PIÙ TOCCARE ALTRO PER FAR AGGIORNARE LA HOME.
 
-4) storicoMensile
-A fine mese aggiorna il totale del mese corrispondente.
-Esempio:
-{"mese":"Gennaio","gruppo":438,"personali":{"Cosimo":121,"Daniela":118,"Patrizia":99}}
+COME FUNZIONA:
+- la HOME prende i dati del mese indicato in meseCorrente
+- lo STORICO mostra tutti i mesi
+- il totale annuale si aggiorna sommando i valori di gruppo dei 12 mesi
 
-NOTE:
-- lo storico mostra a sinistra solo il totale personale dell'operatore loggato
-- a destra mostra solo il totale gruppo del mese
-- il raggiungimento annuale è su 5400 pz
-- può superare 5400, il totale continua comunque a crescere
+LOGIN:
+- Cosimo pin 1
+- Daniela pin 2
+- Patrizia pin 3
 
-CONSIGLIO PRATICO:
-Ogni domenica aggiorna:
-- giorniPassati
-- settimane dei 3 operatori
-- gruppoSettimane
+SE IL DISPOSITIVO HA GIÀ MEMORIZZATO UN UTENTE VECCHIO:
+- apri Storico
+- premi Cambia operatore
+oppure svuota i dati del sito dal browser
 
-Alla fine del mese aggiorna anche:
-- storicoMensile del mese appena finito
+ESEMPIO PRATICO OGNI DOMENICA:
+- aggiorni giorniPassati
+- aggiorni SOLO il mese corrente dentro storicoMensile
+
+ESEMPIO:
+"giorniPassati": 14
+
+{"mese":"Aprile","gruppo":340,"personali":{"Cosimo":104,"Daniela":96,"Patrizia":72}}

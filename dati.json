@@ -1,6 +1,7 @@
 {
+  "meseCorrente": "Aprile",
   "giorniTotali": 30,
-  "giorniPassati": 0,
+  "giorniPassati": 7,
   "obiettivoGruppo": 450,
   "obiettivoAnnuale": 5400,
   "premi": {
@@ -10,53 +11,25 @@
   "operatori": [
     {
       "nome": "Cosimo",
-      "pin": "1",
-      "settimane": [
-        0,
-        0,
-        0,
-        0,
-        0
-      ]
+      "pin": "1"
     },
     {
       "nome": "Daniela",
-      "pin": "2",
-      "settimane": [
-        0,
-        0,
-        0,
-        0,
-        0
-      ]
+      "pin": "2"
     },
     {
       "nome": "Patrizia",
-      "pin": "3",
-      "settimane": [
-        0,
-        0,
-        0,
-        0,
-        0
-      ]
+      "pin": "3"
     }
-  ],
-  "gruppoSettimane": [
-    0,
-    0,
-    0,
-    0,
-    0
   ],
   "storicoMensile": [
     {
       "mese": "Gennaio",
-      "gruppo": 400,
+      "gruppo": 0,
       "personali": {
-        "Cosimo": 60,
-        "Daniela": 102,
-        "Patrizia": 130
+        "Cosimo": 0,
+        "Daniela": 0,
+        "Patrizia": 0
       }
     },
     {
@@ -79,11 +52,11 @@
     },
     {
       "mese": "Aprile",
-      "gruppo": 350,
+      "gruppo": 0,
       "personali": {
-        "Cosimo": 200,
-        "Daniela": 100,
-        "Patrizia": 150
+        "Cosimo": 0,
+        "Daniela": 0,
+        "Patrizia": 0
       }
     },
     {

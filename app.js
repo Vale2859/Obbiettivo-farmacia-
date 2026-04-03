@@ -1,8 +1,7 @@
 
-const LS_USER_KEY = 'ldf_logged_user';
+const LS_USER_KEY = 'ldf_logged_user_v2';
 
 function clamp(v,min,max){ return Math.max(min, Math.min(max, v)); }
-function sum(arr){ return (arr || []).reduce((a,b) => a + Number(b || 0), 0); }
 
 function showPage(page){
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -12,14 +11,19 @@ function showPage(page){
   });
 }
 
-function setLoggedUser(name){
-  localStorage.setItem(LS_USER_KEY, name);
+function setLoggedUser(name){ localStorage.setItem(LS_USER_KEY, name); }
+function getLoggedUser(){ return localStorage.getItem(LS_USER_KEY) || ''; }
+function clearLoggedUser(){ localStorage.removeItem(LS_USER_KEY); }
+
+function currentMonthIndexFromLabel(label){
+  const months = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
+  const idx = months.findIndex(m => m.toLowerCase() === String(label || '').toLowerCase());
+  return idx >= 0 ? idx : (new Date().getMonth());
 }
-function getLoggedUser(){
-  return localStorage.getItem(LS_USER_KEY) || '';
-}
-function clearLoggedUser(){
-  localStorage.removeItem(LS_USER_KEY);
+
+function currentMonthEntry(data){
+  const idx = currentMonthIndexFromLabel(data.meseCorrente);
+  return (data.storicoMensile || [])[idx] || null;
 }
 
 fetch('dati.json').then(r => r.json()).then(data => {
@@ -32,9 +36,10 @@ fetch('dati.json').then(r => r.json()).then(data => {
     document.getElementById('avatarInitial').textContent = initial;
     document.getElementById('storicoUserName').textContent = name;
 
-    const current = sum(user.settimane);
-    const minGoal = data.premi.min;
-    const maxGoal = data.premi.max;
+    const monthEntry = currentMonthEntry(data);
+    const current = Number(monthEntry && monthEntry.personali ? (monthEntry.personali[name] || 0) : 0);
+    const minGoal = Number(data.premi.min || 121);
+    const maxGoal = Number(data.premi.max || 150);
     const passed = Math.max(Number(data.giorniPassati || 1), 1);
     const total = Math.max(Number(data.giorniTotali || 30), 1);
     const left = Math.max(total - passed, 1);
@@ -46,9 +51,9 @@ fetch('dati.json').then(r => r.json()).then(data => {
     const needDay = toMax > 0 ? Math.ceil(toMax / left) : 0;
     const percent = clamp((current / maxGoal) * 100, 0, 100);
 
-    const groupCurrent = sum(data.gruppoSettimane);
+    const groupCurrent = Number(monthEntry ? (monthEntry.gruppo || 0) : 0);
     const groupPercent = clamp((groupCurrent / data.obiettivoGruppo) * 100, 0, 100);
-    const groupMissing = Math.max(data.obiettivoGruppo - groupCurrent, 0);
+    const groupMissing = Math.max(Number(data.obiettivoGruppo || 450) - groupCurrent, 0);
     const groupForecast = Math.round((groupCurrent / passed) * total);
     const groupNeed = groupMissing > 0 ? Math.ceil(groupMissing / left) : 0;
 
@@ -67,7 +72,10 @@ fetch('dati.json').then(r => r.json()).then(data => {
     document.getElementById('needDay').innerHTML = `${needDay} <span>pezzi/giorno</span>`;
     document.getElementById('avg').innerHTML = `${avg.toFixed(1)} <span>pezzi/giorno</span>`;
     document.getElementById('forecast').innerHTML = `${forecast} <span>pezzi</span>`;
-    document.getElementById('forecastPill').textContent = forecast >= maxGoal ? 'Ce la puoi fare! 🚀' : (forecast >= minGoal ? 'Premio alla portata' : 'Serve spingere');
+    document.getElementById('forecastPill').textContent =
+      current === 0 ? 'Aggiorna i dati' :
+      forecast >= maxGoal ? 'Ce la puoi fare! 🚀' :
+      (forecast >= minGoal ? 'Premio alla portata' : 'Serve spingere');
 
     document.getElementById('groupPercent').textContent = `${Math.round(groupPercent)}%`;
     document.getElementById('groupMain').textContent = `${groupCurrent} / ${data.obiettivoGruppo} PEZZI`;
