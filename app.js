@@ -34,26 +34,22 @@ fetch('dati.json').then(r => r.json()).then(data => {
   document.getElementById('piecesDone').textContent = current;
   document.getElementById('heroBig').innerHTML = `${current} / ${maxGoal} <span>PEZZI</span>`;
   document.getElementById('heroPercentText').textContent = `Sei al ${Math.round(percent)}% del massimo`;
-
   document.getElementById('toMin').innerHTML = `${toMin} <span>pezzi</span>`;
   document.getElementById('toMax').innerHTML = `${toMax} <span>pezzi</span>`;
   document.getElementById('needDay').innerHTML = `${needDay} <span>pezzi/giorno</span>`;
   document.getElementById('avg').innerHTML = `${avg.toFixed(1)} <span>pezzi/giorno</span>`;
   document.getElementById('forecast').innerHTML = `${forecast} <span>pezzi</span>`;
   document.getElementById('forecastPill').textContent = forecast >= maxGoal ? 'Ce la puoi fare! 🚀' : (forecast >= minGoal ? 'Premio alla portata' : 'Serve spingere');
-
   document.getElementById('groupPercent').textContent = `${Math.round(groupPercent)}%`;
   document.getElementById('groupMain').textContent = `${groupCurrent} / ${data.obiettivoGruppo} PEZZI`;
   document.getElementById('groupMissing').textContent = groupMissing;
   document.getElementById('groupForecast').textContent = groupForecast;
   document.getElementById('groupNeed').textContent = groupNeed;
-
   document.getElementById('rewardNow').textContent = Math.round(reward);
   document.getElementById('rewardWithGroup').textContent = Math.round(rewardWithGroup);
   document.getElementById('groupBonus').textContent = data.premi.bonusGruppo;
   document.getElementById('rewardBase').textContent = `${data.premi.base}€`;
   document.getElementById('rewardMax').textContent = `${data.premi.maxPremio}€`;
-
   document.getElementById('heroFill').style.width = `${percent}%`;
   document.getElementById('groupFill').style.width = `${groupPercent}%`;
   document.getElementById('rewardFill').style.width = `${percent}%`;
