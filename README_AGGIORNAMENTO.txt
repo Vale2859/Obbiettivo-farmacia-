@@ -1,11 +1,12 @@
-VERSIONE HOME SCREEN + FIX LAYOUT
+MONTESANO LDF - ZIP COMPLETO HOME SCREEN
 
-COSA È STATO FATTO:
+COSA HO FATTO:
+- inserita icona app basata sul logo Montesano
+- aggiunto supporto Home Screen iPhone
+- aggiunto manifest
+- adattato il layout meglio a schermo intero
 - tolta la sezione cerchiata sotto il grafico
-- stretto tutto più verso l'alto
-- aggiunti i file icona in root per schermata Home
-- aggiunto manifest.json
-- corretta la home perché legga il mese corrente da storicoMensile
+- stretto tutto verso l'alto
 
 FILE DA CARICARE IN ROOT:
 - index.html
@@ -13,17 +14,19 @@ FILE DA CARICARE IN ROOT:
 - app.js
 - dati.json
 - manifest.json
+- icon-192.png
 - icon-512.png
 - apple-touch-icon.png
-- logo-ldf-app.svg
+- farmacia-montesano-logo-originale.png
+- README_AGGIORNAMENTO.txt
 
-PER LA HOME SCREEN:
-su iPhone:
-- apri Safari
+SU IPHONE:
+- apri in Safari
 - condividi
-- aggiungi a schermata Home
+- Aggiungi a schermata Home
 
-AGGIORNI SOLO:
+DATI:
+continua ad aggiornare solo:
 - meseCorrente
 - giorniPassati
-- la riga del mese corrente dentro storicoMensile
+- la riga del mese corrente in storicoMensile

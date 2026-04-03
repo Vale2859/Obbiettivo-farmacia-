@@ -5,13 +5,26 @@
   --shadow:0 12px 28px rgba(0,0,0,.26);
 }
 *{box-sizing:border-box}
-html,body{margin:0;padding:0;font-family:Inter,Arial,sans-serif}
+html,body{
+  margin:0;padding:0;font-family:Inter,Arial,sans-serif;
+  height:100%;
+  overflow-x:hidden;
+}
 body{
-  min-height:100vh; color:#fff;
-  background:radial-gradient(circle at 20% 0%, rgba(33,154,111,.18), transparent 28%), linear-gradient(180deg,var(--bg1),var(--bg2));
+  min-height:100vh;
+  color:#fff;
+  padding-top:env(safe-area-inset-top);
+  padding-bottom:env(safe-area-inset-bottom);
+  background:
+    radial-gradient(circle at 20% 0%, rgba(33,154,111,.18), transparent 28%),
+    linear-gradient(180deg,var(--bg1),var(--bg2));
 }
 button,select,input{font:inherit}
-.app{width:min(100%,560px);margin:0 auto;padding:14px 9px calc(108px + env(safe-area-inset-bottom))}
+.app{
+  width:min(100%,560px);
+  margin:0 auto;
+  padding:calc(10px + env(safe-area-inset-top)) 9px calc(108px + env(safe-area-inset-bottom));
+}
 .page{display:none}
 .page.active{display:block}
 .login-overlay{position:fixed; inset:0; z-index:99; display:flex; align-items:center; justify-content:center; padding:18px; background:rgba(2,19,15,.86); backdrop-filter:blur(8px)}
@@ -25,8 +38,7 @@ button,select,input{font:inherit}
 .login-field{width:100%; border:none; outline:none; border-radius:14px; background:#eef3f0; padding:12px 12px}
 .login-btn{width:100%; border:none; border-radius:14px; padding:12px; margin-top:14px; background:linear-gradient(180deg,#1b5e42,#2e8a60); color:#fff; font-weight:900}
 .login-error{min-height:18px; margin-top:8px; font-size:11px; color:#b62121}
-
-.top{display:grid;grid-template-columns:1fr 1fr 74px;gap:8px;align-items:start;margin-bottom:4px}
+.top{display:grid;grid-template-columns:1fr 1fr 74px;gap:8px;align-items:start;margin-top:6px;margin-bottom:4px}
 .logo-main{font-size:52px;font-weight:900;line-height:.92;letter-spacing:-2px}
 .logo-sub{font-size:8px;color:#d6e8de;letter-spacing:.6px;margin-top:4px}
 .welcome{text-align:center;padding-top:12px}
@@ -35,7 +47,6 @@ button,select,input{font:inherit}
 .avatar-card{width:74px;height:74px;border-radius:20px;background:linear-gradient(135deg,#f1f4ef,#d8e0d8);box-shadow:var(--shadow);display:grid;place-items:center;justify-self:end}
 .avatar-initial{color:#163322;font-size:28px;font-weight:900}
 .month-title{text-align:center;font-size:10px;font-weight:900;color:#8edd93;letter-spacing:1px;margin:4px 0 8px}
-
 .goal-top{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
 .goal-chip{border-radius:16px;padding:8px 10px;display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;box-shadow:var(--shadow)}
 .goal-chip.gold{background:linear-gradient(180deg,#fff6de,#f2e0a7)}
@@ -46,7 +57,6 @@ button,select,input{font:inherit}
 .goal-sub{font-size:9px;color:#687970;margin-top:1px}
 .goal-value{font-size:14px;font-weight:900;color:#1c2e27;white-space:nowrap}
 .goal-value span{font-size:10px}
-
 .card{border-radius:20px;box-shadow:var(--shadow);margin-bottom:8px}
 .white{background:rgba(255,255,255,.97);color:var(--text)}
 .hero-card{padding:10px 12px}
@@ -70,9 +80,6 @@ button,select,input{font:inherit}
 .marker span{position:absolute;top:-20px;left:50%;transform:translateX(-50%);background:#fff;padding:3px 6px;border-radius:8px;font-size:9px;font-weight:900;box-shadow:0 4px 10px rgba(0,0,0,.14)}
 .min-marker{left:80.6667%}
 .max-marker{left:100%}
-
-/* TOLTA la sezione cerchiata e stretto tutto verso su */
-
 .dark-card{background:linear-gradient(180deg, rgba(6,49,39,.94), rgba(9,61,47,.94));border-radius:20px;box-shadow:var(--shadow);padding:8px;margin-bottom:8px}
 .stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px}
 .stat{min-height:78px;border-radius:14px;padding:8px;color:#fff}
@@ -88,7 +95,6 @@ button,select,input{font:inherit}
 .bottom-value{margin-top:4px;font-size:18px;font-weight:900}
 .bottom-value span{font-size:10px;font-weight:700}
 .forecast-pill{background:linear-gradient(180deg,#2a7a53,#3cb267);padding:6px 8px;border-radius:999px;font-size:9px;font-weight:900;white-space:nowrap}
-
 .group-card{padding:10px}
 .row-head{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
 .section-title{font-size:14px;font-weight:900}
@@ -99,7 +105,6 @@ button,select,input{font:inherit}
 .group-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:10px}
 .group-item{background:#f4f7f4;border-radius:10px;padding:7px 4px;text-align:center;font-size:10px;color:#1a2a23}
 .group-item span{font-size:8px;font-weight:900;color:#6b7b72}
-
 .storico-top{display:flex;justify-content:space-between;align-items:end;margin-bottom:8px;padding-top:2px}
 .storico-kicker{font-size:10px;color:#d6e8de;font-weight:800}
 .storico-title{font-size:28px;font-weight:900;line-height:1}

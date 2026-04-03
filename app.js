@@ -10,7 +10,6 @@ function showPage(page){
 function setLoggedUser(name){ localStorage.setItem(LS_USER_KEY, name); }
 function getLoggedUser(){ return localStorage.getItem(LS_USER_KEY) || ''; }
 function clearLoggedUser(){ localStorage.removeItem(LS_USER_KEY); }
-
 function currentMonthIndexFromLabel(label){
   const months = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
   const idx = months.findIndex(m => m.toLowerCase() === String(label || '').toLowerCase());
