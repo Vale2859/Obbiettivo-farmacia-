@@ -10,54 +10,88 @@ function showPage(page){
 function setLoggedUser(name){ localStorage.setItem(LS_USER_KEY, name); }
 function getLoggedUser(){ return localStorage.getItem(LS_USER_KEY) || ''; }
 function clearLoggedUser(){ localStorage.removeItem(LS_USER_KEY); }
+
 function currentMonthIndexFromLabel(label){
   const months = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
   const idx = months.findIndex(m => m.toLowerCase() === String(label || '').toLowerCase());
   return idx >= 0 ? idx : (new Date().getMonth());
 }
+
 function currentMonthEntry(data){
   const idx = currentMonthIndexFromLabel(data.meseCorrente);
   return (data.storicoMensile || [])[idx] || null;
 }
+
+// Conta solo i giorni lavorativi lun-sab, escludendo la domenica
+function countWorkedDaysInMonth(year, monthIndex, upToDay){
+  const lastDay = new Date(year, monthIndex + 1, 0).getDate();
+  const limit = Math.max(1, Math.min(upToDay, lastDay));
+  let count = 0;
+  for(let day = 1; day <= limit; day++){
+    const jsDay = new Date(year, monthIndex, day).getDay(); // 0=dom, 1=lun ... 6=sab
+    if(jsDay !== 0) count++;
+  }
+  return count;
+}
+
+function countRemainingWorkedDaysInMonth(year, monthIndex, fromDayExclusive){
+  const lastDay = new Date(year, monthIndex + 1, 0).getDate();
+  let count = 0;
+  for(let day = fromDayExclusive + 1; day <= lastDay; day++){
+    const jsDay = new Date(year, monthIndex, day).getDay();
+    if(jsDay !== 0) count++;
+  }
+  return count;
+}
+
 fetch('dati.json').then(r => r.json()).then(data => {
   const operators = data.operatori || [];
+
   function applyUser(user){
     const name = user.nome;
     document.getElementById('welcomeName').textContent = name.toUpperCase() + '👋';
     document.getElementById('avatarInitial').textContent = name.charAt(0).toUpperCase();
     document.getElementById('storicoUserName').textContent = name;
 
+    const monthIndex = currentMonthIndexFromLabel(data.meseCorrente);
+    const calcYear = Number(data.annoCalcolo || new Date().getFullYear());
+    const todayDay = Number(data.giorniPassati || new Date().getDate());
+    const workedDaysPassed = Math.max(1, countWorkedDaysInMonth(calcYear, monthIndex, todayDay));
+    const workedDaysRemaining = countRemainingWorkedDaysInMonth(calcYear, monthIndex, todayDay);
+
     const monthEntry = currentMonthEntry(data);
     const current = Number(monthEntry && monthEntry.personali ? (monthEntry.personali[name] || 0) : 0);
     const minGoal = Number(data.premi.min || 121);
     const maxGoal = Number(data.premi.max || 150);
-    const passed = Math.max(Number(data.giorniPassati || 1), 1);
-    const total = Math.max(Number(data.giorniTotali || 30), 1);
-    const left = Math.max(total - passed, 1);
 
     const toMin = Math.max(minGoal - current, 0);
     const toMax = Math.max(maxGoal - current, 0);
-    const avg = current / passed;
-    const forecast = Math.round(avg * total);
-    const needDay = toMax > 0 ? Math.ceil(toMax / left) : 0;
+    const avg = current / workedDaysPassed;
+    const forecast = Math.round(avg * (workedDaysPassed + workedDaysRemaining));
+
+    // ritmo target fisso su 150 pz / giorni lavorativi del mese, escludendo domenica
+    const totalWorkedDaysMonth = workedDaysPassed + workedDaysRemaining;
+    const targetDailyPace = totalWorkedDaysMonth > 0 ? (maxGoal / totalWorkedDaysMonth) : 0;
+
     const percent = clamp((current / maxGoal) * 100, 0, 100);
 
     const groupCurrent = Number(monthEntry ? (monthEntry.gruppo || 0) : 0);
     const groupPercent = clamp((groupCurrent / data.obiettivoGruppo) * 100, 0, 100);
     const groupMissing = Math.max(Number(data.obiettivoGruppo || 450) - groupCurrent, 0);
-    const groupForecast = Math.round((groupCurrent / passed) * total);
-    const groupNeed = groupMissing > 0 ? Math.ceil(groupMissing / left) : 0;
+    const groupForecast = Math.round(avg * 0 + (groupCurrent / workedDaysPassed) * (workedDaysPassed + workedDaysRemaining));
+    const groupNeed = workedDaysRemaining > 0 ? Math.ceil(groupMissing / workedDaysRemaining) : 0;
 
     document.getElementById('goalMinTop').textContent = minGoal;
     document.getElementById('goalMaxTop').textContent = maxGoal;
     document.getElementById('minMarkerText').textContent = minGoal;
     document.getElementById('maxMarkerText').textContent = maxGoal;
+
     document.getElementById('piecesDone').textContent = current;
     document.getElementById('heroBig').innerHTML = `${current} / ${maxGoal} <span>PEZZI</span>`;
     document.getElementById('heroPercentText').textContent = `Sei al ${Math.round(percent)}% del massimo`;
     document.getElementById('toMin').innerHTML = `${toMin} <span>pezzi</span>`;
     document.getElementById('toMax').innerHTML = `${toMax} <span>pezzi</span>`;
-    document.getElementById('needDay').innerHTML = `${needDay} <span>pezzi/giorno</span>`;
+    document.getElementById('needDay').innerHTML = `${targetDailyPace.toFixed(1)} <span>pezzi/giorno</span>`;
     document.getElementById('avg').innerHTML = `${avg.toFixed(1)} <span>pezzi/giorno</span>`;
     document.getElementById('forecast').innerHTML = `${forecast} <span>pezzi</span>`;
     document.getElementById('forecastPill').textContent =

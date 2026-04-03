@@ -39,3 +39,17 @@ COSA MOSTRA:
 - totale annuo per dipendente
 - contributo annuale percentuale
 - report strutturati collegati a dati.json
+
+
+AGGIORNAMENTO MEDIA E RITMO:
+- la MEDIA adesso considera solo i giorni lavorati dal lunedì al sabato
+- la domenica NON viene conteggiata
+- il RITMO NECESSARIO adesso usa il target mensile di 150 pz diviso i giorni lavorativi del mese
+- quindi vedrai valori come 6.5 pz/giorno circa, variabili in base al mese
+- per il calcolo del calendario viene usato:
+  "annoCalcolo": 2026
+
+TU CONTINUI AD AGGIORNARE:
+- meseCorrente
+- giorniPassati
+- riga del mese corrente in storicoMensile
