@@ -1,209 +1,182 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" data-page="dashboard">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LDF Obiettivi</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LDF Obiettivi • Dashboard</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f2e1c">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="mobile.css">
 </head>
 <body>
   <main class="app-shell">
     <header class="topbar">
-      <div class="brand-inline">
+      <div class="topbar-left">
         <div class="brand-logo small">LDF</div>
         <div>
-          <div class="topbar-brand">Laboratorio della Farmacia</div>
-          <div class="topbar-sub">I tuoi obiettivi di questo mese</div>
+          <div class="topbar-title">Laboratorio della Farmacia</div>
+          <div class="topbar-sub">Obiettivi del mese</div>
         </div>
       </div>
-
-      <div class="profile-mini">
-        <div>
-          <div class="hello-line">Bentornato</div>
-          <div class="hello-name" id="helloName">Vale</div>
-        </div>
-        <div class="profile-avatar" id="avatarInitials">V</div>
+      <div class="topbar-user">
+        <div class="topbar-hello">Bentornato</div>
+        <div class="topbar-name" id="userName">Vale</div>
       </div>
     </header>
 
     <section class="goal-strip">
       <div class="goal-pill gold">
-        <span class="goal-number">1</span>
-        <div>
-          <div class="goal-pill-title">Obiettivo minimo</div>
-          <div class="goal-pill-sub">121 pezzi • premio base</div>
-        </div>
+        <div class="goal-pill-kicker">Obiettivo minimo</div>
+        <div class="goal-pill-number">121</div>
+        <div class="goal-pill-sub">premio base</div>
       </div>
-
       <div class="goal-pill green">
-        <span class="goal-number">2</span>
-        <div>
-          <div class="goal-pill-title">Obiettivo max</div>
-          <div class="goal-pill-sub">150 pezzi • premio massimo</div>
-        </div>
+        <div class="goal-pill-kicker">Obiettivo massimo</div>
+        <div class="goal-pill-number">150</div>
+        <div class="goal-pill-sub">premio massimo</div>
       </div>
     </section>
 
-    <section class="card hero-card">
+    <section class="hero-card card">
       <div class="hero-left">
-        <div class="ring-wrap">
-          <div class="progress-ring" id="progressRing">
-            <div class="progress-ring-inner">
-              <div class="ring-value" id="heroPieces">85</div>
-              <div class="ring-label">pezzi fatti</div>
-            </div>
+        <div class="ring" id="progressRing">
+          <div class="ring-inner">
+            <div class="ring-value" id="heroCurrent">85</div>
+            <div class="ring-label">pezzi fatti</div>
           </div>
         </div>
       </div>
-
       <div class="hero-right">
-        <div class="hero-main-row">
-          <div class="hero-total"><span id="heroCurrent">85</span> / <span id="heroMax">150</span> pezzi</div>
-          <div class="hero-badge" id="heroBadge">Obiettivo max</div>
+        <div class="hero-main" id="heroMain">85 / 150</div>
+        <div class="hero-state" id="heroState">Ti mancano 36 pezzi per iniziare a guadagnare</div>
+        <div class="track large">
+          <div class="fill fill-green" id="heroFill"></div>
+          <div class="marker marker-min" id="markerMin"><span>121</span></div>
+          <div class="marker marker-max"><span>150</span></div>
         </div>
-
-        <div class="hero-sub" id="heroPercentText">Sei al 56% del massimo</div>
-
-        <div class="track large-track">
-          <div class="fill green-fill" id="heroTrackFill"></div>
-          <div class="marker min-marker" id="heroMinMarker"><span>121</span></div>
-          <div class="marker max-marker"><span>150</span></div>
-        </div>
-
-        <div class="mini-dual-grid">
-          <div class="mini-goal-card min-card">
-            <div class="mini-goal-title">Minimo 121</div>
-            <div class="mini-goal-text">Raggiungi il premio base</div>
+        <div class="hero-badges">
+          <div class="mini-stat">
+            <div class="mini-stat-label">Mancano al minimo</div>
+            <div class="mini-stat-value" id="toMin">36</div>
           </div>
-          <div class="mini-goal-card max-card">
-            <div class="mini-goal-title">Max 150</div>
-            <div class="mini-goal-text">Punta al premio massimo</div>
+          <div class="mini-stat">
+            <div class="mini-stat-label">Mancano al massimo</div>
+            <div class="mini-stat-value" id="toMax">65</div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="metric-grid">
+    <section class="metrics-grid">
       <article class="metric-card orange">
-        <div class="metric-label">Mancano al minimo</div>
-        <div class="metric-value" id="missingMin">36</div>
-        <div class="metric-unit">pezzi</div>
-      </article>
-
-      <article class="metric-card blue">
-        <div class="metric-label">Mancano al massimo</div>
-        <div class="metric-value" id="missingMax">65</div>
-        <div class="metric-unit">pezzi</div>
-      </article>
-
-      <article class="metric-card green">
         <div class="metric-label">Ritmo necessario</div>
-        <div class="metric-value" id="neededPerDay">7</div>
-        <div class="metric-unit">pezzi/giorno</div>
+        <div class="metric-value" id="needPerDay">5</div>
+        <div class="metric-sub">pezzi al giorno</div>
       </article>
-
       <article class="metric-card teal">
         <div class="metric-label">Media attuale</div>
-        <div class="metric-value" id="dailyAverage">6.1</div>
-        <div class="metric-unit">pezzi/giorno</div>
+        <div class="metric-value" id="avgPerDay">6.1</div>
+        <div class="metric-sub">pezzi al giorno</div>
       </article>
-
-      <article class="metric-card emerald span-2">
-        <div class="metric-label">Previsione fine mese</div>
-        <div class="metric-value" id="monthlyForecast">183</div>
-        <div class="metric-unit"><span id="forecastMessage">Ce la puoi fare!</span></div>
+      <article class="metric-card blue">
+        <div class="metric-label">Previsione mese</div>
+        <div class="metric-value" id="forecast">182</div>
+        <div class="metric-sub" id="forecastText">Stai puntando al massimo</div>
       </article>
     </section>
 
-    <section class="card group-card">
-      <div class="section-title">Obiettivo di gruppo</div>
-      <div class="group-top">
-        <div class="group-total"><span id="groupCurrent">269</span> / <span id="groupGoal">450</span> pezzi</div>
-        <div class="group-percent" id="groupPercent">60%</div>
-      </div>
-
-      <div class="track">
-        <div class="fill blue-fill" id="groupTrackFill"></div>
-      </div>
-
-      <div class="group-metrics">
-        <div class="group-mini">
-          <div class="group-mini-label">Mancano</div>
-          <div class="group-mini-value" id="groupMissing">181</div>
-        </div>
-        <div class="group-mini">
-          <div class="group-mini-label">Previsione</div>
-          <div class="group-mini-value" id="groupForecast">408</div>
-        </div>
-        <div class="group-mini">
-          <div class="group-mini-label">Serve</div>
-          <div class="group-mini-value"><span id="groupNeededPerDay">10</span> al giorno</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="card reward-card">
-      <div class="reward-header">
+    <section class="reward-card card premium-dark">
+      <div class="section-head">
         <div>
-          <div class="section-title light">Premio in crescita</div>
-          <div class="reward-sub">Più fai, più guadagni</div>
+          <div class="section-kicker light">Premio in crescita</div>
+          <div class="section-title light">Più fai, più guadagni</div>
         </div>
-        <div class="reward-highlight" id="rewardStatus">In crescita</div>
+        <div class="status-chip" id="rewardStatus">Da sbloccare</div>
       </div>
 
-      <div class="reward-right-panel">
-        <div class="reward-estimate-box">
-          <div class="reward-estimate-label">La tua stima attuale</div>
-          <div class="reward-estimate-value"><span id="rewardEstimate">52</span>€</div>
+      <div class="reward-grid">
+        <div class="reward-box">
+          <div class="reward-box-label">Premio attuale</div>
+          <div class="reward-box-value"><span id="rewardNow">0</span>€</div>
         </div>
-        <div class="reward-estimate-box accent">
-          <div class="reward-estimate-label">Con gruppo</div>
-          <div class="reward-estimate-value"><span id="rewardWithGroup">77</span>€</div>
-          <div class="reward-bonus-text">+<span id="groupBonus">25</span>€ bonus gruppo</div>
+        <div class="reward-box accent">
+          <div class="reward-box-label">Con gruppo</div>
+          <div class="reward-box-value"><span id="rewardGroup">0</span>€</div>
+          <div class="reward-bonus">bonus gruppo +<span id="groupBonus">25</span>€</div>
         </div>
       </div>
 
-      <div class="reward-track-wrap">
-        <div class="reward-arrow">↗</div>
-        <div class="track reward-track">
-          <div class="fill reward-fill" id="rewardTrackFill"></div>
-          <div class="marker reward-min"><span>121</span></div>
-          <div class="marker reward-max"><span>150</span></div>
-        </div>
+      <div class="track reward-track">
+        <div class="fill fill-gold" id="rewardFill"></div>
+        <div class="marker marker-min reward-marker-min"><span>121</span></div>
+        <div class="marker marker-max"><span>150</span></div>
       </div>
 
       <div class="reward-scale">
         <div class="reward-scale-item">
           <div class="reward-scale-top">0€</div>
-          <div class="reward-scale-bottom">Sotto il minimo</div>
+          <div class="reward-scale-bottom">sotto soglia</div>
         </div>
         <div class="reward-scale-item center">
-          <div class="reward-scale-top"><span id="baseReward">67</span>€</div>
-          <div class="reward-scale-bottom">Premio base</div>
+          <div class="reward-scale-top" id="rewardBase">67€</div>
+          <div class="reward-scale-bottom">premio base</div>
         </div>
         <div class="reward-scale-item">
-          <div class="reward-scale-top"><span id="maxReward">84</span>€</div>
-          <div class="reward-scale-bottom">Premio massimo</div>
+          <div class="reward-scale-top" id="rewardMax">84€</div>
+          <div class="reward-scale-bottom">premio massimo</div>
         </div>
       </div>
     </section>
 
-    <section class="card ranking-card">
-      <div class="ranking-head">
-        <div class="section-title">Classifica</div>
-        <div class="ranking-link">Classifica del mese</div>
+    <section class="card">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Gruppo</div>
+          <div class="section-title">Obiettivo condiviso</div>
+        </div>
+        <div class="right-big" id="groupPercent">64%</div>
       </div>
-      <div id="rankingList"></div>
+      <div class="group-total" id="groupMain">289 / 450 pezzi</div>
+      <div class="track">
+        <div class="fill fill-blue" id="groupFill"></div>
+      </div>
+      <div class="group-grid">
+        <div class="group-box">
+          <div class="group-box-label">Mancano</div>
+          <div class="group-box-value" id="groupMissing">161</div>
+        </div>
+        <div class="group-box">
+          <div class="group-box-label">Previsione</div>
+          <div class="group-box-value" id="groupForecast">392</div>
+        </div>
+        <div class="group-box">
+          <div class="group-box-label">Serve</div>
+          <div class="group-box-value"><span id="groupNeed">12</span>/giorno</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Messaggio</div>
+          <div class="section-title">Focus di oggi</div>
+        </div>
+      </div>
+      <div class="focus-message" id="focusMessage">Continua così: puoi arrivare al premio massimo.</div>
     </section>
 
     <nav class="bottom-nav">
-      <button class="nav-btn active">Obiettivi</button>
-      <button class="nav-btn">Classifica</button>
-      <button class="nav-btn">Storico</button>
-      <button class="nav-btn">Profilo</button>
+      <a class="nav-link active" href="index.html">Obiettivi</a>
+      <a class="nav-link" href="classifica.html">Classifica</a>
+      <a class="nav-link" href="storico.html">Storico</a>
+      <a class="nav-link" href="premi.html">Premi</a>
+      <a class="nav-link" href="gruppo.html">Gruppo</a>
+      <a class="nav-link" href="profilo.html">Profilo</a>
+      <a class="nav-link" href="impostazioni.html">Altro</a>
     </nav>
   </main>
-
   <script src="app.js"></script>
 </body>
 </html>
