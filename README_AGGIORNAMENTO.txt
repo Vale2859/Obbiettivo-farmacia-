@@ -23,3 +23,19 @@ Carica in root:
 - apple-touch-icon.png
 - farmacia-montesano-logo-originale.png
 - README_AGGIORNAMENTO.txt
+
+
+PAGINA TITOLARE AGGIUNTA:
+- titolare.html
+- titolare.css
+- titolare.js
+
+APRI:
+- titolare.html
+
+COSA MOSTRA:
+- situazione mese corrente per ogni dipendente
+- storico mese per mese
+- totale annuo per dipendente
+- contributo annuale percentuale
+- report strutturati collegati a dati.json
