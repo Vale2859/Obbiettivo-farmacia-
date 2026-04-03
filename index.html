@@ -2,21 +2,23 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>LDF Obiettivi</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <main class="app">
     <header class="top">
-      <div class="logo-block">
-        <div class="logo-box">LDF</div>
+      <div class="logo-wrap">
+        <div class="logo-main">LDF</div>
         <div class="logo-sub">LABORATORIO DELLA FARMACIA</div>
       </div>
+
       <div class="welcome">
         <div class="welcome-small">Bentornato</div>
         <div class="welcome-name" id="welcomeName">VALE 👋</div>
       </div>
+
       <div class="avatar">V</div>
     </header>
 
@@ -29,7 +31,7 @@
           <div class="goal-title">OBIETTIVO MINIMO</div>
           <div class="goal-sub">Per il premio base</div>
         </div>
-        <div class="goal-value" id="goalMinTop">121 <span>PEZZI</span></div>
+        <div class="goal-value">121 <span>PEZZI</span></div>
       </div>
 
       <div class="goal-chip green">
@@ -38,47 +40,50 @@
           <div class="goal-title">OBIETTIVO MAX</div>
           <div class="goal-sub">Il tuo massimo potenziale</div>
         </div>
-        <div class="goal-value" id="goalMaxTop">150 <span>PEZZI</span></div>
+        <div class="goal-value">150 <span>PEZZI</span></div>
       </div>
     </section>
 
     <section class="card white hero-card">
-      <div class="hero-left">
-        <div class="ring" id="ring">
-          <div class="ring-inner">
-            <div class="ring-value" id="piecesDone">85</div>
-            <div class="ring-text">PEZZI<br>FATTI</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="hero-right">
-        <div class="hero-line">
-          <div class="hero-big" id="heroBig">85 / 150 <span>PEZZI</span></div>
-          <div class="hero-pill">OBIETTIVO MAX</div>
-        </div>
-
-        <div class="hero-percent" id="heroPercentText">Sei al 56% del massimo</div>
-
-        <div class="track silver">
-          <div class="fill green-fill" id="heroFill"></div>
-          <div class="marker min-marker"><span>121</span></div>
-          <div class="marker max-marker"><span>150</span></div>
-        </div>
-
-        <div class="mini-goal-row">
-          <div class="mini-goal gold-lite">
-            <div class="mini-icon">🏆</div>
-            <div>
-              <div class="mini-title">MINIMO 121</div>
-              <div class="mini-sub">Raggiungi il premio base</div>
+      <div class="hero-grid">
+        <div class="hero-left">
+          <div class="ring" id="ring">
+            <div class="ring-inner">
+              <div class="ring-value" id="piecesDone">85</div>
+              <div class="ring-text">PEZZI<br>FATTI</div>
             </div>
           </div>
-          <div class="mini-goal blue-lite">
-            <div class="mini-icon">🎯</div>
-            <div>
-              <div class="mini-title">MAX 150</div>
-              <div class="mini-sub">Punta al premio massimo</div>
+        </div>
+
+        <div class="hero-right">
+          <div class="hero-line">
+            <div class="hero-big" id="heroBig">85 / 150 <span>PEZZI</span></div>
+            <div class="hero-pill">OBIETTIVO MAX</div>
+          </div>
+
+          <div class="hero-percent" id="heroPercentText">Sei al 56% del massimo</div>
+
+          <div class="track silver">
+            <div class="fill green-fill" id="heroFill"></div>
+            <div class="marker min-marker"><span>121</span></div>
+            <div class="marker max-marker"><span>150</span></div>
+          </div>
+
+          <div class="mini-goal-row">
+            <div class="mini-goal gold-lite">
+              <div class="mini-icon">🏆</div>
+              <div>
+                <div class="mini-title">MINIMO 121</div>
+                <div class="mini-sub">Raggiungi il premio base</div>
+              </div>
+            </div>
+
+            <div class="mini-goal blue-lite">
+              <div class="mini-icon">🎯</div>
+              <div>
+                <div class="mini-title">MAX 150</div>
+                <div class="mini-sub">Punta al premio massimo</div>
+              </div>
             </div>
           </div>
         </div>
@@ -155,8 +160,8 @@
 
       <div class="track reward-track">
         <div class="reward-fill" id="rewardFill"></div>
-        <div class="marker min-marker reward-min"><span>121</span></div>
-        <div class="marker max-marker reward-max"><span>150</span></div>
+        <div class="marker min-marker"><span>121</span></div>
+        <div class="marker max-marker"><span>150</span></div>
       </div>
 
       <div class="reward-scale">
