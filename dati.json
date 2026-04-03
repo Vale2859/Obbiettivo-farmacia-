@@ -52,11 +52,11 @@
     },
     {
       "mese": "Aprile",
-      "gruppo": 0,
+      "gruppo": 400,
       "personali": {
-        "Cosimo": 0,
-        "Daniela": 0,
-        "Patrizia": 0
+        "Cosimo": 87,
+        "Daniela": 100,
+        "Patrizia": 120
       }
     },
     {
