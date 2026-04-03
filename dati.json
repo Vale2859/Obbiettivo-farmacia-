@@ -1,6 +1,6 @@
 {
-  "giorniTotali": 30,
-  "giorniPassati": 17,
+  "giorniTotali": 14,
+  "giorniPassati": 7,
   "obiettivoGruppo": 450,
   "premi": {
     "min": 121,
@@ -12,47 +12,19 @@
   "operatori": [
     {
       "nome": "Vale",
-      "pin": 2859,
-      "pezzi": 85,
-      "storicoSettimanale": [
-        18,
-        21,
-        23,
-        23
-      ]
+      "pezzi": 85
     },
     {
       "nome": "Daniela",
-      "pin": 1234,
-      "pezzi": 82,
-      "storicoSettimanale": [
-        17,
-        19,
-        22,
-        24
-      ]
+      "pezzi": 82
     },
     {
       "nome": "Cosimo",
-      "pin": 2222,
-      "pezzi": 65,
-      "storicoSettimanale": [
-        12,
-        14,
-        18,
-        21
-      ]
+      "pezzi": 65
     },
     {
       "nome": "Patrizia",
-      "pin": 1111,
-      "pezzi": 57,
-      "storicoSettimanale": [
-        11,
-        12,
-        15,
-        19
-      ]
+      "pezzi": 57
     }
   ]
 }
