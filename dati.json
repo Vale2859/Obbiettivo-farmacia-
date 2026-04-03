@@ -1,0 +1,30 @@
+{
+  "giorniTotali": 14,
+  "giorniPassati": 7,
+  "obiettivoGruppo": 450,
+  "premi": {
+    "min": 121,
+    "max": 150,
+    "base": 67,
+    "maxPremio": 84,
+    "bonusGruppo": 25
+  },
+  "operatori": [
+    {
+      "nome": "Vale",
+      "pezzi": 85
+    },
+    {
+      "nome": "Daniela",
+      "pezzi": 82
+    },
+    {
+      "nome": "Cosimo",
+      "pezzi": 65
+    },
+    {
+      "nome": "Patrizia",
+      "pezzi": 57
+    }
+  ]
+}
