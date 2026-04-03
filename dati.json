@@ -52,11 +52,11 @@
   "storicoMensile": [
     {
       "mese": "Gennaio",
-      "gruppo": 0,
+      "gruppo": 400,
       "personali": {
-        "Cosimo": 0,
-        "Daniela": 0,
-        "Patrizia": 0
+        "Cosimo": 60,
+        "Daniela": 102,
+        "Patrizia": 130
       }
     },
     {
