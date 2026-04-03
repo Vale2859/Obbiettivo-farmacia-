@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
-<rect width="512" height="512" rx="96" fill="#ffffff"/>
-<rect x="28" y="28" width="456" height="456" rx="90" fill="none" stroke="#0b5038" stroke-width="14"/>
-<text x="256" y="220" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="150" font-weight="700" fill="#0b5038">LDF</text>
-<text x="256" y="330" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="28" fill="#5c7468">LABORATORIO DELLA FARMACIA</text>
-</svg>
